@@ -1,18 +1,28 @@
-import React from 'react';
-import {Container} from '@mui/material';
+import React, { useEffect, useState } from "react";
+import PokeCard from "./PokeCard";
+import axios from "axios";
+
+const baseURL = "https://pokeapi.co/api/v2/pokemon/";
 
 const Home = () => {
-  return (
-    <Container
-    maxWidth='xs'
-    sx={{
-      border:2,
-      boxShadow:1,
-      m:1
-    }}>
-<h1>Home</h1>
-    </Container>
-  )
-}
+  const [poke, setPoke] = useState(null);
 
-export default Home
+  useEffect(() => {
+    axios.get(baseURL).then((res) => {
+      setPoke(res.data.results);
+      console.log(res.data.results);
+    });
+  }, []);
+
+  if (!poke) return <h1>Nada para ver</h1>;
+  return (
+    <div>
+      <h1>Pokemon's List</h1>
+      {poke.map((item) => (
+        <PokeCard key={item.id} name={item.name} />
+      ))}
+    </div>
+  );
+};
+
+export default Home;
