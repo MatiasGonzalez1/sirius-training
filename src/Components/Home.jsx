@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PokeCard from "./PokeCard";
 import axios from "axios";
-import { Button } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 
 const baseURL = "https://pokeapi.co/api/v2/pokemon/";
 
@@ -17,13 +17,15 @@ const Home = () => {
 
   if (!poke) return <h1>Nada para ver</h1>;
   return (
-    <div>
-      <h1>Pokemon's List</h1>
-      {poke.map((item) => (
-        <PokeCard key={item.id} id={item.id} name={item.name} />
-      ))}
-      <Button variant="contained">Siguiente</Button>
-    </div>
+    <Grid item xs={12}>
+      <div>
+        <h1 style={{textAlign: 'center'}}>Pokemon's List</h1>
+        {poke.map((item) => (
+          <PokeCard key={item.id} name={item.name} />
+        ))}
+        <Button variant="contained">Siguiente</Button>
+      </div>
+    </Grid>
   );
 };
 
