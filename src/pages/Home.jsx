@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import PokeCard from "./PokeCard";
+import PokeCard from "../Components/PokeCard";
 import axios from "axios";
 import { Button, Grid } from "@mui/material";
+import Request from "../utils/Request.js";
 
 const Home = () => {
   const [poke, setPoke] = useState([]);
-  const [url, setUrl] = useState("https://pokeapi.co/api/v2/pokemon/"); 
+  const [url, setUrl] = useState(Request); 
 
   useEffect(() => {
     axios.get(url)
