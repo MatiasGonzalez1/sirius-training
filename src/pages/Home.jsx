@@ -9,12 +9,14 @@ const Home = () => {
   const [url, setUrl] = useState(Request); 
 
   useEffect(() => {
-    axios.get(url)
+    axios.get(`${url}pokemon/ `)
     .then((res) => {
       return res.data.results
     })
     .then((results) => {
-      return Promise.all(results.map((res) => axios.get(res.url)))
+      return Promise.all(
+        results.map((res) => axios.get(res.url))
+        )
     })
     .then((results) => {
       setPoke(results.map((res) =>res.data)
@@ -23,11 +25,10 @@ const Home = () => {
 
   },[url]);
 
- 
   return (
       <div>
         <h1 style={{textAlign: 'center'}}>Pokemon's List</h1>
-        <Grid container spacing={3}>
+        <Grid container spacing={4}>
            {poke.map((item) => (
               <PokeCard 
               key={item.id} 
