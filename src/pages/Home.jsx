@@ -12,7 +12,7 @@ const Home = () => {
     axios.get(`${url}pokemon/`)
     .then((res) => {
 
-      // setUrl(res.data.next);
+     console.log(res.data.next);
       return res.data.results
     })
     .then((results) => {
