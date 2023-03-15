@@ -6,7 +6,7 @@ const PokeCard = ({ name, ability, imgSrc, id }) => {
   const alt = `img-${name}`;
 
   return (
-    <Grid item xs={4}>
+    <Grid item xs={12} sm={6} md={4} lg={4}>
       <Paper elevation={15}>
         <Grid container spacing={4} justifyContent="center">
           <img src={imgSrc} alt={alt} />
@@ -14,7 +14,9 @@ const PokeCard = ({ name, ability, imgSrc, id }) => {
         <Grid container spacing={4} justifyContent='center'>
         <h2>{name}</h2>
         </Grid>
+        <Grid spacing={2} justifyContent='flex-end'>
         <p>{ability}</p>
+        </Grid>
       </Paper>
     </Grid>
   );
