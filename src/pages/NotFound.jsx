@@ -1,8 +1,12 @@
-import React from 'react'
+import React from 'react';
+import { Container, Box } from "@mui/material";
+
 
 const NotFound = () => {
   return (
-    <div>NotFound Buddy</div>
+    <>
+        <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }} />
+    </>
   )
 }
 

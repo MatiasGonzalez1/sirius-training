@@ -7,8 +7,8 @@ import Request from "../utils/Request.js";
 const Home = () => {
   const [poke, setPoke] = useState([]);
   const [url, setUrl] = useState(Request); 
-  const shot = (`${url}/pokemon/`)
-  const [actual, setActual] = useState();
+  const shot = (`${url}/pokemon/`);
+  const [species, setSpecies] = useState();
  
   const fetch = (url)=>{
     axios.get(`${url}pokemon?limit=10/`)
@@ -58,10 +58,15 @@ const Home = () => {
               key={item.id} 
               id= {item.id} 
               name={item.name} 
-              imgSrc={item.sprites.other.home.front_default} 
+              type={item.types[0].type.name}
+              imgSrc={item.sprites.other.home.front_default}
+              experience={item.base_experience}
+              hp={item.stats[0].base_stat}
+              atk={item.stats[1].base_stat}
+              def={item.stats[2].base_stat}
+              speed={item.stats[5].base_stat}
               // evolution={item.}
               ability={item.abilities}
-              // ability={[`${item.abilities[0].ability.name} ${item.abilities[1]? item.abilities[1].ability.name : ''}`]}
               href={`${shot}${item.id}`}
               />
            ))} 
