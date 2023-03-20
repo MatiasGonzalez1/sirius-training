@@ -67,7 +67,7 @@ const Home = () => {
               speed={item.stats[5].base_stat}
               // evolution={item.}
               ability={item.abilities}
-              href={`${shot}${item.id}`}
+              href={`/poke/${item.id}`}
               />
            ))} 
             

@@ -1,12 +1,12 @@
 import React from 'react';
 import PokeCard from './PokeCard';
 
-const PokeInfo = ({name}) => {
+const OnePokeInfo = ({id}) => {
   return (
     <>
-   
+    <PokeCard/>
     </>
   )
 }
 
-export default PokeInfo
+export default OnePokeInfo;

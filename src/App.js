@@ -3,6 +3,8 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import Container from '@mui/material/Container';
 import {Routes, Route} from 'react-router-dom';
+import OnePoke from './pages/OnePoke';
+//El archivo fetch es unicamente de prueba
 // import Fetch from './utils/Fetch';
 
 export const App = ()=> {
@@ -13,6 +15,7 @@ export const App = ()=> {
           <Routes>
             <Route path='/' element={<Home/>}/>
             <Route path='*' element={<NotFound/>}/>
+            <Route path='poke/:id' element={<OnePoke/>}/>
           </Routes>
       </Container>
     </div>
