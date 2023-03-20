@@ -27,46 +27,46 @@ const PokeCard = ({
   const sxHover = {
     boxShadow: 3,
     "&:hover": {
+      transiton: '5s',
+      transform:'scale(1.02)',
       border: "1px solid #0c0b0b4f",
     },
   };
-  const center ={
-    justifyContent:'center',
-    flexDirection: 'column'
-  }
+
   return (
     <Grid item xs={12} md={6} lg={4}>
       <Paper elevation={15} sx={sxHover}>
         <Grid container justifyContent="flex-start" padding={2}>
           <h2>{id}</h2>
         </Grid>
+
         <Grid container justifyContent="center">
-          <img src={imgSrc} alt={alt} />
+          <Grid item container sx={{maxHeight:'100', maxWidth:'100', justifyContent:'center'}}><img src={imgSrc} alt={alt} style={{width:'300px'}}/>
+            </Grid>
         </Grid>
+
         <Grid container justifyContent="center">
           <h2>{name}</h2>
         </Grid>
+        
         <Grid container justifyContent="center">
-          <h2>{type}</h2>
+          {type.map((one)=>(
+            <p key={one.type.name}>{one.type.name}</p>
+          ))}
         </Grid>
+        
         <Grid container justifyContent="center">
-          <Grid item container xs={12} sx={center}>
+          {/* <Grid item container xs={12} 
+          > */}
             <p>Stats:</p>
           </Grid>
 
-          <Grid item container xs={4} sx={center}>
-          <p>Hp: {hp}</p>
-          <p>Exp: {experience}</p>
+          <Grid container xs={12}>
+          <Grid item container sx={{p:2, m:1, justifyContent:'center', gap:10}}><p>Hp: {hp}</p><p> Exp: {experience}</p></Grid>
+          <Grid item container sx={{p:2, m:1, justifyContent:'center', gap:10}}><p>Def: {def}</p><p>Atk: {atk}</p></Grid>
+          <Grid item container sx={{p:2, m:1, justifyContent:'center', gap:10}}><p>Speed: {speed}</p></Grid>
           </Grid>
-          <Grid item xs={4}>
-            <p>Def: {def}</p>
-            <p>Atk: {atk}</p>
-          </Grid>
-          <Grid item xs={4}>
-            <p>Speed: {speed}</p>
-          </Grid>
-          <Grid item xs={4}></Grid>
-        </Grid>
+        
         <Grid container justifyContent="flex-start" padding={10}>
           <InputLabel id="ability">Ability</InputLabel>
           <Select fullWidth labelId="ability" label="Ability">

@@ -11,7 +11,7 @@ const Home = () => {
   const [species, setSpecies] = useState();
  
   const fetch = (url)=>{
-    axios.get(`${url}pokemon?limit=10/`)
+    axios.get(`${url}pokemon/`)
     .then((res) => {
       // setUrl(res.data.next)
       return res.data.results
@@ -52,13 +52,13 @@ const Home = () => {
   return (
       <div>
         <h1 style={{textAlign: 'center'}}>Pokemon's List</h1>
-        <Grid container spacing={15}>
+        <Grid container sx={{ flexGrow: 1 }} spacing={3}>
            {poke.map((item, index) => (
               <PokeCard 
               key={item.id} 
               id= {item.id} 
-              name={item.name} 
-              type={item.types[0].type.name}
+              name={item.name[0].toUpperCase() + item.name.slice(1)} 
+              type={item.types}
               imgSrc={item.sprites.other.home.front_default}
               experience={item.base_experience}
               hp={item.stats[0].base_stat}
