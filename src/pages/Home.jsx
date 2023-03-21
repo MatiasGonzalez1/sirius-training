@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PokeCard from "../Components/PokeCard";
 import axios from "axios";
-import { Button, Grid } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import Request from "../utils/Request.js";
 
 const Home = () => {
@@ -48,22 +48,16 @@ const Home = () => {
 
   return (
       <div>
-        <h1 style={{textAlign: 'center'}}>Pokemon's List</h1>
+        <Grid container justifyContent='center' padding={2}><Typography variant="h3">Pokemon's List</Typography></Grid>
         <Grid container sx={{ flexGrow: 1 }} spacing={3}>
            {poke.map((item, index) => (
               <PokeCard 
               key={item.id} 
               id= {item.id} 
               name={item.name[0].toUpperCase() + item.name.slice(1)} 
+              imgSrc={item.sprites.other.dream_world.front_default}
               type={item.types}
-              imgSrc={item.sprites.other.home.front_default}
               experience={item.base_experience}
-              hp={item.stats[0].base_stat}
-              atk={item.stats[1].base_stat}
-              def={item.stats[2].base_stat}
-              speed={item.stats[5].base_stat}
-              // evolution={item.}
-              ability={item.abilities}
               href={`/poke/${item.id}`}
               />
            ))} 

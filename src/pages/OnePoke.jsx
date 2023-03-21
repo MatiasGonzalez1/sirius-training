@@ -9,37 +9,37 @@ import ButtonToHome from "../Components/ButtonToHome";
 
 const OnePoke = () => {
 
-  const [poke, setPoke] = useState([]);
+  const [poke, setPoke] = useState({});
   const [url, setUrl] = useState(Request);
-  const {id} = useParams()
+  const [data, setData] = useState([]);
+  const [imgData, setImgData] = useState([]);
+  const {id} = useParams();
 
-  useEffect(() => {
+  useEffect(
+    () => {
     axios.get(`${url}pokemon/${id}`)
     .then((res) => {
       setPoke(res.data)
-       },[url])
-      });
-
-  return (
-   <>
+      setData(res.data.stats)
+      setImgData(res.data.sprites.other.dream_world.front_default)
+    })
+    }
+    ,[url])
+  
+ return(
+ <Grid>
 
       {/* Queda ver por que no renderiza la card */}
-    {/* <PokeCard  
-              id= {poke.id} 
-              name={poke.name[0].toUpperCase() + poke.name.slice(1)} 
-              type={poke.types}
-              imgSrc={poke.sprites.other.home.front_default}
-              experience={poke.base_experience}
-              hp={poke.stats[0].base_stat}
-              atk={poke.stats[1].base_stat}
-              def={poke.stats[2].base_stat}
-              speed={poke.stats[5].base_stat}
-              // evolution={poke.}
-              ability={poke.abilities}
-              href={`/poke/${poke.id}`}
-              /> */}
+    <PokeCard  
+              id= {poke?.id} 
+              name={poke?.name} 
+              type={poke?.types}
+              imgSrc={imgData}
+              data={data}
+              ability={poke?.abilities}
+              />
         <ButtonToHome/>
-  </> 
+  </Grid> 
   )  
 };
 

@@ -15,6 +15,7 @@ export const App = ()=> {
           <Routes>
             <Route path='/' element={<Home/>}/>
             <Route path='*' element={<NotFound/>}/>
+            <Route path='/poke' element={<Home/>}/>
             <Route path='poke/:id' element={<OnePoke/>}/>
           </Routes>
       </Container>
