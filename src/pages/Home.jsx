@@ -55,7 +55,7 @@ const Home = () => {
               key={item.id} 
               id= {item.id} 
               name={item.name[0].toUpperCase() + item.name.slice(1)} 
-              imgSrc={item.sprites.other.dream_world.front_default}
+              imgSrc={item.sprites.front_default}
               type={item.types}
               experience={item.base_experience}
               href={`/poke/${item.id}`}

@@ -38,7 +38,7 @@ const PokeCard = ({
 
         <Grid container justifyContent="center">
           <Grid item container justifyContent="center">
-            <img src={imgSrc} alt={alt} style={{ width: "300px" }} />
+            <img src={imgSrc} alt={alt} style={{ width: "150px" }} />
           </Grid>
         </Grid>
 
