@@ -36,12 +36,12 @@ const PokeCard = ({
   return (
     <Grid item xs={12} md={6} lg={4}>
       <Paper elevation={15} sx={sxHover}>
-        <Grid container justifyContent="flex-start" padding={2}>
-          <h2>{id}</h2>
+        <Grid container justifyContent="flex-start" padding={1}>
+          <p>{id}</p>
         </Grid>
 
         <Grid container justifyContent="center">
-          <Grid item container sx={{maxHeight:'100', maxWidth:'100', justifyContent:'center'}}><img src={imgSrc} alt={alt} style={{width:'300px'}}/>
+          <Grid item container justifyContent='center'><img src={imgSrc} alt={alt} style={{width:'300px'}}/>
             </Grid>
         </Grid>
 

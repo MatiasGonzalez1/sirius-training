@@ -1,9 +1,10 @@
 import React, { useEffect, useState} from "react";
 import PokeCard from "../Components/PokeCard";
 import axios from "axios";
-import { Button, Grid } from "@mui/material";
+import {Grid } from "@mui/material";
 import Request from "../utils/Request.js";
 import { useParams } from "react-router-dom";
+import ButtonToHome from "../Components/ButtonToHome";
 
 
 const OnePoke = () => {
@@ -16,14 +17,14 @@ const OnePoke = () => {
     axios.get(`${url}pokemon/${id}`)
     .then((res) => {
       setPoke(res.data)
-       },[])
+       },[url])
       });
 
   return (
    <>
 
       {/* Queda ver por que no renderiza la card */}
-    <PokeCard  
+    {/* <PokeCard  
               id= {poke.id} 
               name={poke.name[0].toUpperCase() + poke.name.slice(1)} 
               type={poke.types}
@@ -36,9 +37,10 @@ const OnePoke = () => {
               // evolution={poke.}
               ability={poke.abilities}
               href={`/poke/${poke.id}`}
-              />
-        {/* <Button variant='contained' href='/'>Return To Home</Button> */}
-  </> )  
-}
+              /> */}
+        <ButtonToHome/>
+  </> 
+  )  
+};
 
-export default OnePoke
+export default OnePoke;

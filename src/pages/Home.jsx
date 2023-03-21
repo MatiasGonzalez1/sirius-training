@@ -9,6 +9,7 @@ const Home = () => {
   const [url, setUrl] = useState(Request); 
   const shot = (`${url}/pokemon/`);
   const [species, setSpecies] = useState();
+  const [nextPoke, setNextPoke] = useState();
  
   const fetch = (url)=>{
     axios.get(`${url}pokemon/`)
@@ -31,7 +32,7 @@ const Home = () => {
   // const next = (url)=>{
   //   axios.get(`${url}pokemon/`)
   //   .then((res) => {
-  //     setUrl(res.data.next)
+  //     setNextPoke(res.data.next)
   //   })
   // }
  
@@ -44,10 +45,6 @@ const Home = () => {
    fetch(url)
   },[url]);
 
-
-  // const cap = (str)=>{
-  //   return str.charAt(0).toUpperCase + str.slice(1)
-  // }
 
   return (
       <div>
