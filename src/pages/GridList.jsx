@@ -58,7 +58,7 @@ const GridList = () => {
               imgSrc={item.sprites.front_default}
               type={item.types}
               experience={item.base_experience}
-              href={`/poke/${item.id}`}
+              href={`/pokeGrid/${item.id}`}
               />
            ))} 
             
