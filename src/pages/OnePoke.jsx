@@ -14,6 +14,8 @@ const OnePoke = () => {
   const [data, setData] = useState([]);
   const [imgData, setImgData] = useState([]);
   const {id} = useParams();
+  const [evolution, nextEvolution] = useState([]);
+  const [finalEvolution, setFinalEvolution] = useState([]);
 
   useEffect(
     () => {
@@ -25,20 +27,36 @@ const OnePoke = () => {
     })
     }
     ,[url])
+
+    useEffect(() => {
+      const count = parseInt(id)+1
+      const obtenerEvoluciones = async () => {
+              const res = await axios.get(`${url}pokemon-species/${count}`);
+              console.log(res.data)
+              nextEvolution(res.data.name)
+              // setFinalEvolution(res.data.chain.evolves_to[0].evolves_to[0].species.name)
+      };
+      obtenerEvoluciones()
+      }, [])
   
  return(
- <Grid>
-
-      {/* Queda ver por que no renderiza la card */}
-    <PokeCard  
+ <Grid container justifyContent='center'>
+    <Grid item width='100%'>
+      <PokeCard  
               id= {poke?.id} 
               name={poke?.name} 
               type={poke?.types}
               imgSrc={imgData}
               data={data}
               ability={poke?.abilities}
+              move={poke?.moves}
+              evolution={evolution}
+              // finalEvolution={finalEvolution}
               />
-        <ButtonToHome/>
+              </Grid>
+        <Grid item>
+          <ButtonToHome/>
+          </Grid>
   </Grid> 
   )  
 };

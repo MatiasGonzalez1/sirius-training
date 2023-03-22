@@ -29,7 +29,6 @@ const Fetch = () => {
         })
       )
     })
-
   return (
     <div>
       {poke.map((i)=>(<h1>A</h1>))}

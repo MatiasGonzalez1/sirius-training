@@ -13,10 +13,12 @@ const PokeCard = ({
   name,
   type,
   ability,
+  move,
   imgSrc,
   id,
   href,
   evolution,
+  finalEvolution,
   data,
 }) => {
   const alt = `img-${name}`;
@@ -30,10 +32,10 @@ const PokeCard = ({
   };
 
   return (
-    <Grid item xs={12} md={6} lg={4}>
+    <Grid item xs={8} md={6} lg={4} maxWidth='500px' justifyContent='center'>
       <Paper elevation={15} sx={sxHover}>
         <Grid container justifyContent="flex-start" padding={1}>
-          <p>{id}</p>
+          <Typography>{id}</Typography>
         </Grid>
 
         <Grid container justifyContent="center">
@@ -43,56 +45,94 @@ const PokeCard = ({
         </Grid>
 
         <Grid container justifyContent="center">
-          <h2>{name}</h2>
+          <Typography variant="h5">{name}</Typography>
         </Grid>
-
-        <Grid container justifyContent="center">
-          {type?.map((one) => (
-            <p key={one.type.name}>{one.type.name}</p>
+        <Grid container>
+       <Grid container justifyContent="center" padding={1}>
+        <Typography variant='subtitle2'>Types:</Typography>
+        <Grid item xs ={4} >
+          {type?.map((one, i) => (
+              <Typography key={i} textAlign='end'> {one.type.name}</Typography>
           ))}
         </Grid>
-
-        {data?
-        <Grid>
-        <Grid container justifyContent="center">
-          {/* <Grid item container xs={12} 
-          > */}
-          <p>Stats:</p>
+           </Grid>
         </Grid>
 
-        <Grid container xs={12}justifyContent="center">
-          {data.map((item, i) => (
-            <Grid container item key={i} xs={6} justifyContent='center' padding={1} border={1} margin={1}>
-              <Grid item>
-                <Typography>
-                  {item.stat.name}: {item.base_stat}
-                </Typography>
-              </Grid>
+        {data ? (
+          <Grid>
+            <Grid container justifyContent="center">
+              <Typography variant='subtitle2'>Stats:</Typography>
             </Grid>
-          ))}
-        </Grid>
-        </Grid> : ''}
 
-        {ability?<Grid container justifyContent="flex-start" padding={10}>
-          <InputLabel id="ability">Ability</InputLabel>
-          <Select fullWidth labelId="ability" label="Ability">
-            {ability?.map((one) => (
-              <MenuItem key={one.ability.name}>{one.ability.name}</MenuItem>
-            ))}
-          </Select>
-        </Grid>: ''}
+            <Grid container xs={12} justifyContent="center">
+              {data.map((item, i) => (
+                <Grid
+                  container
+                  item
+                  key={i}
+                  xs={5}
+                  justifyContent="space-around"
+                  // padding={1}
+                  border={1}
+                  margin={1}
+                >
+                  <Grid item>
+                    <Typography>
+                      {item.stat.name}: {item.base_stat}
+                      </Typography>
+                  </Grid>
+                </Grid>
+              ))}
+            </Grid>
+          </Grid>
+        ) : (
+          ""
+        )}
+
+        {ability ? (
+          <Grid container justifyContent="flex-start" padding={10} mt='-30px'>
+            <InputLabel id="ability">Ability</InputLabel>
+            <Select fullWidth labelId="ability" label="Ability">
+              {ability?.map((one) => (
+                <MenuItem key={one.ability.name}>{one.ability.name}</MenuItem>
+              ))}
+            </Select>
+          </Grid>
+        ) : (
+          ""
+        )}
+
+        {move ? (
+          <Grid container justifyContent="flex-start" padding={10} mt='-100px'>
+            <InputLabel id="moves">Moves</InputLabel>
+            <Select fullWidth labelId="move" label="Move">
+              {move?.map((one) => (
+                <MenuItem key={one.move.name}>{one.move.name}</MenuItem>
+              ))}
+            </Select>
+          </Grid>
+        ) : (
+          ""
+        )}
 
         <Grid container justifyContent="flex-end" padding={2}>
-          
-          {href?
-          <Link href={href}>
-            <Typography component="h3">See more details</Typography>
-          </Link>: ''}
+          {href ? (
+            <Link href={href}>
+              <Typography component="h3">See more details</Typography>
+            </Link>
+          ) : (
+            ""
+          )}
         </Grid>
 
         <Grid container justifyContent="flex-center">
-          {evolution}
-        </Grid>
+          {evolution? <Grid item xs={4}>
+            <Typography variant='subtitle2'>Evolution: {evolution}</Typography>
+            </Grid> : ''}
+            {finalEvolution? <Grid item xs={4}>
+            <Typography variant='subtitle2'>Final Evolution: {finalEvolution}</Typography>
+            </Grid> :''}
+          </Grid>
       </Paper>
     </Grid>
   );
