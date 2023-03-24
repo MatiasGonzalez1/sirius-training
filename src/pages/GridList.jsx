@@ -48,7 +48,7 @@ const GridList = () => {
 
   return (
     <Grid>
-        <Grid container justifyContent='center' padding={2} margin={2}><Typography variant="h3">Pokemon's List</Typography></Grid>
+        <Grid container justifyContent='center' padding={2}><Typography sx={{fontSize: '2.2rem'}} variant="h3">Pokemon's List</Typography></Grid>
         <Grid container sx={{ flexGrow: 1 }} spacing={2} justifyContent='center' >
            {poke.map((item, index) => (
            
