@@ -3,7 +3,7 @@ import PokeCard from "../Components/PokeCard";
 import axios from "axios";
 import { Button, Grid, Typography } from "@mui/material";
 import Request from "../utils/Request.js";
-
+  
 const GridList = () => {
   const [poke, setPoke] = useState([]);
   const [url, setUrl] = useState(Request); 
@@ -47,10 +47,11 @@ const GridList = () => {
 
 
   return (
-      <div>
+    <Grid>
         <Grid container justifyContent='center' padding={2} margin={2}><Typography variant="h3">Pokemon's List</Typography></Grid>
         <Grid container sx={{ flexGrow: 1 }} spacing={2} justifyContent='center' >
            {poke.map((item, index) => (
+           
               <PokeCard 
               key={item.id} 
               id= {item.id} 
@@ -58,18 +59,15 @@ const GridList = () => {
               imgSrc={item.sprites.front_default}
               type={item.types}
               experience={item.base_experience}
-              href={`/pokeGrid/${item.id}`}
+              href={`/pokeList/${item.id}`}
               />
+
            ))} 
-            
             <Grid container justifyContent='flex-end'>
               <Button variant="contained" onClick={console.log(url)}>Siguiente</Button>
             </Grid>
-
         </Grid>
-       
-        
-      </div>
+      </Grid>
      
   );
 };

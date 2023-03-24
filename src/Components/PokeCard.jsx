@@ -17,7 +17,7 @@ const PokeCard = ({
   imgSrc,
   id,
   href,
-  evolution,
+  preEvolution,
   finalEvolution,
   data,
 }) => {
@@ -32,7 +32,7 @@ const PokeCard = ({
   };
 
   return (
-    <Grid item xs={8} md={6} lg={4} maxWidth='500px' justifyContent='center'>
+    <Grid item  xs={8} md={6} lg={4} maxWidth='500px'>
       <Paper elevation={15} sx={sxHover}>
         <Grid container justifyContent="flex-start" padding={1}>
           <Typography>{id}</Typography>
@@ -59,12 +59,12 @@ const PokeCard = ({
         </Grid>
 
         {data ? (
-          <Grid>
-            <Grid container justifyContent="center">
+          <Grid container  justifyContent="center">
+            <Grid item>
               <Typography variant='subtitle2'>Stats:</Typography>
             </Grid>
 
-            <Grid container xs={12} justifyContent="center">
+            <Grid container justifyContent="center">
               {data.map((item, i) => (
                 <Grid
                   container
@@ -126,8 +126,8 @@ const PokeCard = ({
         </Grid>
 
         <Grid container justifyContent="flex-center">
-          {evolution? <Grid item xs={4}>
-            <Typography variant='subtitle2'>Evolution: {evolution}</Typography>
+          {preEvolution? <Grid item xs={4}>
+            <Typography variant='subtitle2'>Pre Evolution: {preEvolution}</Typography>
             </Grid> : ''}
             {finalEvolution? <Grid item xs={4}>
             <Typography variant='subtitle2'>Final Evolution: {finalEvolution}</Typography>
