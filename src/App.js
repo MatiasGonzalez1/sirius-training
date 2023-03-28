@@ -15,10 +15,10 @@ export const App = ()=> {
       {/* <Fetch/> */}
       <Container>
           <Routes>
-            <Route path='/' element={<GridList/>}/>
+          <Route path='/' element={<Home/>}/>
             <Route path='*' element={<NotFound/>}/>
-            <Route path='/pokeList' element={<GridList/>}/>
-            <Route path='/pokeList/:id' element={<OnePoke/>}/>
+            <Route path='/poke' element={<GridList/>}/>
+            <Route path='/poke/:id' element={<OnePoke/>}/>
           </Routes>
       </Container>
     </div>

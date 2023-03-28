@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import PokeCard from "../Components/PokeCard";
+import PokeInfo from "../Components/PokeInfo";
 import axios from "axios";
 import { Grid } from "@mui/material";
 import Request from "../utils/Request.js";
@@ -23,28 +23,17 @@ const OnePoke = () => {
       setImgData(res.data.sprites.other.dream_world.front_default);
       const species = res.data.species.url;
       const idSpecies = species.split("/")[6];
-      console.log(idSpecies);
-      console.log(species);
+      // console.log(idSpecies);
+      // console.log(species);
       axios.get(species).then((res) => {
-        const arr = res.data;
-        console.log(res.data);
-        // if(arr.evolves_from_species !== null) setPreEvolution(arr.evolves_from_species.name)
-        arr.evolves_from_species &&
-          setPreEvolution(arr.evolves_from_species.name);
-        const evolutionChain = arr.evolution_chain.url;
-        const chainId = evolutionChain.split("/")[6];
-        // console.log(chainId)
-        // console.log(evolutionChain)
-        // console.log(evolutionChain)
+        const resSpecies = res.data;
+        const evolvesFrom = resSpecies.evolves_from_species.name;
+        resSpecies.evolves_from_species.name == null ? setPreEvolution('') : setPreEvolution(evolvesFrom);
+        const evolutionChain = resSpecies.evolution_chain.url;
         axios.get(evolutionChain).then((res) => {
-          const foo = res.data.chain.evolves_to[0].species.name;
-          // console.log(res.data.chain)
-          // console.log(foo)
-          // foo.map((i)=>(console.log(i)))
-          // axios.get(ul)
-          // .then((res)=>{
-          //   const fin = res.data;
-          //   console.log(fin)
+          const resEvolution = res.data.chain
+          nextEvolution(resEvolution.evolves_to[0].species.name);
+          resEvolution.evolves_to[0].evolves_to[0].species == null ? setFinalEvolution('') : setFinalEvolution(resEvolution.evolves_to[0].evolves_to[0].species.name);
         });
         // })
       });
@@ -63,9 +52,8 @@ const OnePoke = () => {
   //   }, [])
 
   return (
-    <Grid container justifyContent="center">
-      <Grid item xs={12} md={12} lg={12} minWidth='500px'>
-        <PokeCard
+      <Grid item xs={12} md={12} lg={12}>
+        <PokeInfo
           id={poke?.id}
           name={poke?.name}
           type={poke?.types}
@@ -74,13 +62,10 @@ const OnePoke = () => {
           ability={poke?.abilities}
           move={poke?.moves}
           preEvolution={preEvolution}
-          // finalEvolution={finalEvolution}
+          finalEvolution={finalEvolution}
         />
       </Grid>
-      <Grid item>
-        <ButtonToHome />
-      </Grid>
-    </Grid>
+     
   );
 };
 

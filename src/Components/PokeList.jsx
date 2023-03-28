@@ -4,7 +4,7 @@ import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
+import Avatar from '@mui/material/Avatar';  
 import Typography from '@mui/material/Typography';
 
 const Pokelist = ({name,
@@ -20,7 +20,7 @@ const Pokelist = ({name,
 
   return (
     <List sx={{ width: '100%', maxWidth: 1000, bgcolor: 'background.paper'}}>
-      <ListItem alignItems="flex-end">
+      <ListItem>
         <ListItemAvatar>
           <Avatar alt={alt} src={imgSrc} sx={{width:'80px', height:'80px'}} />
         </ListItemAvatar>

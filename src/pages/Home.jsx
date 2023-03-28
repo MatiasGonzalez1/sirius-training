@@ -1,18 +1,21 @@
-import { Button, Grid, Typography } from '@mui/material'
-import React from 'react'
+import React from "react";
+import Switch from '@mui/material/Switch';
+import GridList from "./GridList";
+import Container from '@mui/material/Container';
+import TableList from './TableList';
 
+
+  
 const Home = () => {
-  return (
-<Grid container>
-  <Typography>How do you want to see it?</Typography>
-  <Grid item container>
-    <Button href='/pokeGrid'>Grid</Button>
-  </Grid>
-  <Grid item container>
-    <Button href='/pokeTable'>Table</Button>
-  </Grid>
-</Grid>
-    )
-}
 
-export default Home
+  return (
+    <Container>
+       <Switch label='Grid' color='secondary' defaultChecked/>
+      <GridList/>
+      <TableList/>
+    </Container>  
+  );
+};
+
+
+export default Home;

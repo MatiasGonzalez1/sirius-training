@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box } from "@mui/material";
+import {Box, Typography} from "@mui/material";
 import psyduc from '../assets/img/png.png'
 import ButtonToHome from '../Components/ButtonToHome';
 
@@ -7,9 +7,9 @@ const NotFound = () => {
   return (
     <>
         <Box sx={{height: '100vh', justifyContent: 'center', display:'flex', flexWrap:'wrap'}}>
-          <h1 style={{width:'100%'}}>404 not found</h1>
+          <Typography variant='h1' sx={{width: '100%', color:'white', textAlign:'center'}}>404 not found</Typography>
           <img src={psyduc} alt='Psyduck' style={{width:'300px', height:'400px',justifyContent:'center'}}/>
-          <h2 style={{width:'100%'}}>Oh no! You confused Psyduc!!</h2>
+          <Typography variant='h2'sx={{width:'100%', color:'white', textAlign:'center'}}>Oh no! You confused Psyduc!!</Typography>
           <ButtonToHome/>
         </Box>
     </>
