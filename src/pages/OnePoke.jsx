@@ -4,7 +4,8 @@ import axios from "axios";
 import { Grid } from "@mui/material";
 import Request from "../utils/Request.js";
 import { useParams } from "react-router-dom";
-import ButtonToHome from "../Components/ButtonToHome";
+import ButtonToHome from "../Components/Button/ButtonToHome";
+import Prueba from "../Components/Loader/Prueba.jsx";
 
 const OnePoke = () => {
   const [poke, setPoke] = useState({});
@@ -15,12 +16,15 @@ const OnePoke = () => {
   const [evolution, nextEvolution] = useState([]);
   const [finalEvolution, setFinalEvolution] = useState([]);
   const [preEvolution, setPreEvolution] = useState([]);
+  const [loader, setLoader] = useState(false);
 
   useEffect(() => {
+
+    setLoader(true);
     axios.get(`${url}pokemon/${id}`).then((res) => {
       setPoke(res.data);
       setData(res.data.stats);
-      setImgData(res.data.sprites.other.dream_world.front_default);
+      setImgData(res.data.sprites.other.home.front_default? res.data.sprites.other.home.front_default : res.data.sprites.front_default );
       const species = res.data.species.url;
       const idSpecies = species.split("/")[6];
       // console.log(idSpecies);
@@ -37,23 +41,18 @@ const OnePoke = () => {
         });
         // })
       });
-    });
+      setLoader(false)
+    }
+    );
   }, [url]);
 
-  // useEffect(() => {
-  //   const count = parseInt(id)+1
-  //   const obtenerEvoluciones = async () => {
-  //           const res = await axios.get(`${url}pokemon-species/${count}`);
-  //           console.log(res.data)
-  //           nextEvolution(res.data.name)
-  //           // setFinalEvolution(res.data.chain.evolves_to[0].evolves_to[0].species.name)
-  //   };
-  //   obtenerEvoluciones()
-  //   }, [])
-
-  return (
+if(loader){
+  return <Prueba/>
+} else
+   return (
       <Grid item xs={12} md={12} lg={12}>
-        <PokeInfo
+        <Grid> 
+          <PokeInfo
           id={poke?.id}
           name={poke?.name}
           type={poke?.types}
@@ -64,6 +63,8 @@ const OnePoke = () => {
           preEvolution={preEvolution}
           finalEvolution={finalEvolution}
         />
+        <ButtonToHome/>
+       </Grid>
       </Grid>
      
   );

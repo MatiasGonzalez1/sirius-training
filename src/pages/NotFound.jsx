@@ -1,7 +1,7 @@
 import React from 'react';
 import {Box, Typography} from "@mui/material";
 import psyduc from '../assets/img/png.png'
-import ButtonToHome from '../Components/ButtonToHome';
+import ButtonToHome from '../Components/Button/ButtonToHome';
 
 const NotFound = () => {
   return (

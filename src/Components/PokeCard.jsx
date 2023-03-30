@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Grid,
   Link,
@@ -24,7 +24,7 @@ const PokeCard = ({
   const sxHover = {
     boxShadow: 3,
     "&:hover": {
-      transiton: "5s",
+      transiton: "5s",  
       transform: "scale(1.02)",
       border: "1px solid #0c0b0b4f",
     },

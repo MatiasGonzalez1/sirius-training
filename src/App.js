@@ -18,6 +18,8 @@ export const App = ()=> {
           <Route path='/' element={<Home/>}/>
             <Route path='*' element={<NotFound/>}/>
             <Route path='/poke' element={<GridList/>}/>
+            <Route path='/pokeList' element={<TableList/>}/>
+            <Route path='/pokeList/:id' element={<OnePoke/>}/>
             <Route path='/poke/:id' element={<OnePoke/>}/>
           </Routes>
       </Container>

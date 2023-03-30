@@ -3,7 +3,7 @@ import PokeCard from "../Components/PokeCard";
 import axios from "axios";
 import { Button, Grid, Typography } from "@mui/material";
 import Request from "../utils/Request.js";
-
+import Prueba from "../Components/Loader/Prueba.jsx";
   
 const GridList = () => {
   const [poke, setPoke] = useState([]);
@@ -11,16 +11,18 @@ const GridList = () => {
   const shot = (`${url}/pokemon`);
   const [species, setSpecies] = useState();
   const [nextPoke, setNextPoke] = useState();
+  const [loader, setLoader] = useState(false);
+
  
   // const fetch = (url)=>{
     
   // }
 
   useEffect(() => {
-    try{
-      axios.get(`${url}pokemon?limit=6`)
+setLoader(true);
+
+      axios.get(`${url}pokemon?limit=40`)
     .then((res) => {
-      // setUrl(res.data.next)
       return res.data.results
     })
     .then((results) => {
@@ -33,14 +35,16 @@ const GridList = () => {
       setPoke(results.map((res) =>res.data)
       )
     })
-  } catch(error){
-      console.log(error);
-    }
+ 
+    setLoader(false);
   },[url]);
 
-
-  return (
+  if(loader) return <Prueba/>
+  return (    
     <Grid>
+        
+        <Button href="/pokeList">View on list</Button>
+
         <Grid container justifyContent='center' padding={2} color='white'><Typography sx={{fontSize: '2.2rem'}} variant="h3">Pokemon's List</Typography></Grid>
         <Grid container spacing={2} justifyContent='center' >
            {poke.map((item, index) => (

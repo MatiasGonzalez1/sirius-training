@@ -1,16 +1,11 @@
 import React from "react";
 import {
   Grid,
-  Link,
-  MenuItem,
   Paper,
-  Select,
-  InputLabel,
   Typography,
   ListItem,
   List,
   ListItemText,
-  ListItemButton
 } from "@mui/material";
 
 import LabelImportantIcon from "@mui/icons-material/LabelImportant";
@@ -27,11 +22,17 @@ const PokeInfo = ({
   finalEvolution,
   data,
 }) => {
-
   const alt = `img-${name}`;
+
+  const sxItemBox={
+    justifyContent:"space-around",
+    border:' 2px solid #1d1b1bae',
+    borderRadius: '5px',
+    margin:'5px',
+  }
+
   return (
-    <Grid item sx={{margin: '30px 0px'}}>
-      <Link href={href} underline="none">
+    <Grid item sx={{ margin: "30px 0px" }}>
         <Paper elevation={15}>
           <Grid container justifyContent="flex-start" padding={1}>
             <Typography>{id}</Typography>
@@ -45,9 +46,9 @@ const PokeInfo = ({
 
           <Grid container justifyContent="center">
             <Typography variant="h5">{name}</Typography>
-          </Grid> 
+          </Grid>
 
-          <Grid container justifyContent="center">
+          <Grid container justifyContent="center" marginTop={3}>
             <Grid container justifyContent="center" padding={1}>
               <Typography variant="subtitle2">Types:</Typography>
               <Grid item xs={8} textAlign="end">
@@ -55,9 +56,11 @@ const PokeInfo = ({
                   <Typography
                     key={i}
                     display="inline"
-                    sx={{padding:'5px 0'}}
+                    sx={{ padding: "5px 0" }}
                   >
-                    <LabelImportantIcon sx={{fontSize:'10px', margin:'0px 5px 0px 5px'}} />
+                    <LabelImportantIcon
+                      sx={{ fontSize: "10px", margin: "0px 5px 0px 5px" }}
+                    />
                     {one.type.name}
                   </Typography>
                 ))}
@@ -66,7 +69,7 @@ const PokeInfo = ({
           </Grid>
 
           {data ? (
-            <Grid container justifyContent="center">
+            <Grid container justifyContent="center" marginTop={3}>
               <Grid item>
                 <Typography variant="subtitle2">Stats:</Typography>
               </Grid>
@@ -78,10 +81,7 @@ const PokeInfo = ({
                     item
                     key={i}
                     xs={5}
-                    justifyContent="space-around"
-                    // padding={1}
-                    border={1}
-                    margin={1}
+                    sx={sxItemBox}
                   >
                     <Grid item>
                       <Typography>
@@ -107,74 +107,85 @@ const PokeInfo = ({
             //  ))
             //  }
             // </List>
-          //   <Grid container justifyContent="flex-start" padding={10} mt="-30px">
-          //     <InputLabel id="ability">Ability</InputLabel>
-          //     <ul>
-          //       {ability?.map((one) => (
-          //         <Typography key={one.ability.name}>{one.ability.name}</Typography>
-          //       ))}
-          //     </ul>
-          //   </Grid>
-          // ) : (
-          //   ""
-          <Grid container justifyContent="center">
-             <Grid item>
+            //   <Grid container justifyContent="flex-start" padding={10} mt="-30px">
+            //     <InputLabel id="ability">Ability</InputLabel>
+            //     <ul>
+            //       {ability?.map((one) => (
+            //         <Typography key={one.ability.name}>{one.ability.name}</Typography>
+            //       ))}
+            //     </ul>
+            //   </Grid>
+            // ) : (
+            //   ""
+            <Grid container justifyContent="center" marginTop={3}>
+              <Grid item>
                 <Typography variant="subtitle2">Ability:</Typography>
               </Grid>
               <Grid container justifyContent="center">
-            {ability?.map((one, i)=>(
-              <Grid
-              container
-              item
-              key={i}
-              xs={5}
-              justifyContent="space-around"
-              border={1}
-              margin={1}
-            >
-              <Grid item>
-              <Typography>
-                {i +1}: {one.ability.name}
-               </Typography>
-               </Grid>
-               </Grid>
-            ))}
-          </Grid>
-          </Grid>) : ''
-          }
+                {ability?.map((one, i) => (
+                  <Grid
+                    container
+                    item
+                    key={i}
+                    xs={5}
+                    sx={sxItemBox}
+                  >
+                    <Grid item>
+                      <Typography variant='body1'>
+                        {i + 1}- 
+                      
+                      {one.ability.name}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                ))}
+              </Grid>
+            </Grid>
+          ) : (
+            ""
+          )}
 
           {move ? (
             <Grid container justifyContent="center" marginTop={2}>
-            <Typography variant="subtitle2" sx={{padding:'10px', height:'40px', display:'block'}}>Moves:</Typography>
-            <List
-            sx={{
-              width: '80%',
-              maxWidth: '60%',
-              bgcolor: 'background.paper',
-              position: 'relative',
-              overflow: 'auto',
-              maxHeight: 150,
-              border: '1px solid #000',
-              borderRadius: '5px',
-              '& ul': { padding: 0 },
-            }}
-            >
-              
-             {move?.map((one, i)=>(
-              <ListItem key={one.move.name} sx={{
-                '&:hover':{
-                  backgroundColor:'#0a0a0ac7',
-                  color:'#fff'
-                  }
-                  }}>
-              <ListItemText>{i+1} - {one.move.name}
-              </ListItemText>
-            </ListItem>
-             ))
-             }
-            </List>
-            </Grid>
+              <Typography
+                variant="subtitle2"
+                sx={{ padding: "10px", height: "40px", display: "block" }}
+              >
+                Moves:
+              </Typography>
+              <List
+                sx={{
+                  width: "80%",
+                  maxWidth: "60%",
+                  bgcolor: "background.paper",
+                  position: "relative",
+                  overflow: "auto",
+                  maxHeight: 150,
+                  border: "1px solid #1d1b1bae",
+                  borderRadius: "5px",
+                  "& ul": { padding: 0 },
+                }}
+              >
+                {move?.map((one, i) => (
+                  <ListItem
+                    key={one.move.name}
+                    sx={{
+                      "&:hover": {
+                        backgroundColor: "#0a0a0ac7",
+                        color: "#fff",
+                      },
+                    }}
+                  >
+                    <ListItemText><Typography>
+                    {i + 1} - {one.move.name}
 
+                    </Typography>
+                    </ListItemText>
+                  </ListItem>
+                ))}
+              </List>
+            </Grid>
+          ) : (
             // <Grid
             //   container
             //   justifyContent="flex-start"
@@ -188,40 +199,44 @@ const PokeInfo = ({
             //     ))}
             //   </Select>
             // </Grid>
-          ) : (
             ""
           )}
 
-          <Grid container justifyContent="center" textAlign='center' padding={1} sx={{padding:'30px'}}>
-            {preEvolution? (
+          <Grid
+            container
+            justifyContent="center"
+            textAlign="center"
+            padding={1}
+            sx={{ padding: "30px" }}
+          >
+            {preEvolution ? (
               <Grid item xs={6} justifyContent="center">
-                <Typography  variant="subtitle1">
+                <Typography variant="subtitle1">
                   Pre Evolution: {preEvolution}
                 </Typography>
               </Grid>
             ) : (
               <Grid item xs={6} justifyContent="center">
-                <Typography  variant="subtitle1">
+                <Typography variant="subtitle1">
                   Pre Evolution: No tiene
                 </Typography>
               </Grid>
             )}
             {finalEvolution ? (
               <Grid item xs={6}>
-                  <Typography variant="subtitle1">
+                <Typography variant="subtitle1">
                   Final Evolution: {finalEvolution}
                 </Typography>
               </Grid>
             ) : (
               <Grid item xs={6} justifyContent="center">
-                <Typography  variant="subtitle1">
+                <Typography variant="subtitle1">
                   Final Evolution: No tiene
                 </Typography>
               </Grid>
             )}
           </Grid>
         </Paper>
-      </Link>
     </Grid>
   );
 };

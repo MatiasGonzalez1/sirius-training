@@ -4,6 +4,7 @@ import axios from "axios";
 import { Button, Grid, Typography, Container } from "@mui/material";
 import Request from "../utils/Request.js";
 import Pokelist from "../Components/PokeList.jsx";
+import ButtonToHome from "../Components/Button/ButtonToHome.jsx";
 
 const TableList = () => {
   const [poke, setPoke] = useState([]);
@@ -38,6 +39,7 @@ const TableList = () => {
 
   return (
       <Container>
+        <Button href="/poke">View on Grid</Button>
         {poke.map((item, i)=>(
           <Pokelist
           key={item.id}
@@ -47,6 +49,7 @@ const TableList = () => {
           />
         ))}    
         
+        <ButtonToHome/>
       </Container>
      
   );
