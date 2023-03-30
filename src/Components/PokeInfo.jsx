@@ -10,6 +10,8 @@ import {
 
 import LabelImportantIcon from "@mui/icons-material/LabelImportant";
 
+
+
 const PokeInfo = ({
   name,
   type,
@@ -17,7 +19,6 @@ const PokeInfo = ({
   move,
   imgSrc,
   id,
-  href,
   preEvolution,
   finalEvolution,
   data,
@@ -31,6 +32,36 @@ const PokeInfo = ({
     margin:'5px',
   }
 
+  const typeColor = {
+    bug: "#26de81",
+    dragon:"#ffeaa7",
+    electric: "#fed330",
+    fairy: "#ff0069",
+    fightling: "#30336b",
+    fire: "#f0932b",
+    flying: "#81ecec",
+    grass: "#00b894",
+    ground: "#efb549",
+    ghost: "#a55eea",
+    ice: "#74b9ff",
+    normal: "#95afc0",
+    poison: "#6c5ce7",
+    psychic: "#a29bfe",
+    rock: "#2d3436",
+    water: "#0190ff",
+  };
+
+
+  const themeType = (name)=>{
+    for(const type in typeColor){
+      if(name === type){
+        return typeColor[type];
+      }
+    }
+  }
+let a ='grass';
+  console.log(themeType(a))
+  
   return (
     <Grid item sx={{ margin: "30px 0px" }}>
         <Paper elevation={15}>
@@ -39,8 +70,8 @@ const PokeInfo = ({
           </Grid>
 
           <Grid container justifyContent="center">
-            <Grid item container justifyContent="center">
-              <img src={imgSrc} alt={alt} sx={{ width: "150px" }} />
+            <Grid item container justifyContent="center" sx={{width:'100%', height:'80%'}}>             
+              <img src={imgSrc} alt={alt} width='30%'/>
             </Grid>
           </Grid>
 
@@ -55,11 +86,12 @@ const PokeInfo = ({
                 {type?.map((one, i) => (
                   <Typography
                     key={i}
+                    // bg={themeType(one.type.name)}
                     display="inline"
-                    sx={{ padding: "5px 0" }}
+                    sx={{ padding: "5px", margin:'2px', backgroundColor:`${themeType(one.type.name)}`, borderRadius:'10px' }}
                   >
                     <LabelImportantIcon
-                      sx={{ fontSize: "10px", margin: "0px 5px 0px 5px" }}
+                      sx={{ fontSize: "10px", margin: "0px 5px 0px 5px"}}
                     />
                     {one.type.name}
                   </Typography>

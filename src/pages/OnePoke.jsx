@@ -18,9 +18,7 @@ const OnePoke = () => {
   const [preEvolution, setPreEvolution] = useState([]);
   const [loader, setLoader] = useState(false);
 
-  useEffect(() => {
-
-    setLoader(true);
+   const fetch = (url)=>{
     axios.get(`${url}pokemon/${id}`).then((res) => {
       setPoke(res.data);
       setData(res.data.stats);
@@ -39,11 +37,20 @@ const OnePoke = () => {
           nextEvolution(resEvolution.evolves_to[0].species.name);
           resEvolution.evolves_to[0].evolves_to[0].species == null ? setFinalEvolution('') : setFinalEvolution(resEvolution.evolves_to[0].evolves_to[0].species.name);
         });
-        // })
       });
-      setLoader(false)
+      setLoader(false);
     }
     );
+  }
+
+
+  useEffect(() => {
+
+    setLoader(true);
+
+    fetch(url);
+
+    
   }, [url]);
 
 if(loader){
