@@ -1,4 +1,5 @@
 import React from "react";
+import { themeType } from "../utils/ThemeColor";
 import {
   Grid,
   Link,
@@ -56,7 +57,7 @@ const PokeCard = ({
                   <Typography
                     key={i}
                     display="inline"
-                    sx={{padding:'5px 0'}}
+                    sx={{ padding: "0px 3px", margin:'5px 2px', backgroundColor:`${themeType(one.type.name)}`, borderRadius:'6px' }}
                   >
                     <LabelImportantIcon sx={{fontSize:'10px', margin:'0px 5px 0px 5px'}} />
                     {one.type.name}

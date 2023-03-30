@@ -9,8 +9,7 @@ import {
 } from "@mui/material";
 
 import LabelImportantIcon from "@mui/icons-material/LabelImportant";
-
-
+import { themeType } from "../utils/ThemeColor";
 
 const PokeInfo = ({
   name,
@@ -31,36 +30,6 @@ const PokeInfo = ({
     borderRadius: '5px',
     margin:'5px',
   }
-
-  const typeColor = {
-    bug: "#26de81",
-    dragon:"#ffeaa7",
-    electric: "#fed330",
-    fairy: "#ff0069",
-    fightling: "#30336b",
-    fire: "#f0932b",
-    flying: "#81ecec",
-    grass: "#00b894",
-    ground: "#efb549",
-    ghost: "#a55eea",
-    ice: "#74b9ff",
-    normal: "#95afc0",
-    poison: "#6c5ce7",
-    psychic: "#a29bfe",
-    rock: "#2d3436",
-    water: "#0190ff",
-  };
-
-
-  const themeType = (name)=>{
-    for(const type in typeColor){
-      if(name === type){
-        return typeColor[type];
-      }
-    }
-  }
-let a ='grass';
-  console.log(themeType(a))
   
   return (
     <Grid item sx={{ margin: "30px 0px" }}>
@@ -86,7 +55,6 @@ let a ='grass';
                 {type?.map((one, i) => (
                   <Typography
                     key={i}
-                    // bg={themeType(one.type.name)}
                     display="inline"
                     sx={{ padding: "5px", margin:'2px', backgroundColor:`${themeType(one.type.name)}`, borderRadius:'10px' }}
                   >
