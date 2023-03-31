@@ -17,11 +17,30 @@ const typeColor = {
   water: "#0190ff",
 };
 
+const typeColorTransparent = {
+  bug: "#18c26dd3",
+  dragon:"#ebd58eca",
+  electric: "#e8be28be",
+  fairy: "#e80463d6",
+  fightling: "#26295fce",
+  fire: "#e18720d0",
+  flying: "#67d9d9cb",
+  grass: "#01a181b6",
+  ground: "#d89e33c2",
+  ghost:"#8945cdc3",
+  ice: "#569ee6c6",
+  normal: "#7da1b9b7",
+  poison: "#5b4bd1bc",
+  psychic: "#928cebcd",
+  rock: "#1f2527cf",
+  water: "#0184e8c8",
+};
+
 
 export const themeType = (name)=>{
-  for(const type in typeColor){
+  for(const type in typeColorTransparent){
     if(name === type){
-      return typeColor[type];
+      return typeColorTransparent[type];
     }
   }
 }

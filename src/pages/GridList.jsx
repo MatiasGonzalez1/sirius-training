@@ -4,65 +4,79 @@ import axios from "axios";
 import { Button, Grid, Typography } from "@mui/material";
 import Request from "../utils/Request.js";
 import Prueba from "../Components/Loader/Prueba.jsx";
-  
+
 const GridList = () => {
   const [poke, setPoke] = useState([]);
-  const [url, setUrl] = useState(Request); 
-  const shot = (`${url}/pokemon`);
-  const [species, setSpecies] = useState();
-  const [nextPoke, setNextPoke] = useState();
+  const [url, setUrl] = useState(Request);
+  const shot = `${url}/pokemon`;
+  const [nextPoke, setNextPoke] = useState("");
+  const [prevPoke, setPrevPoke] = useState("");
+
   const [loader, setLoader] = useState(false);
 
- 
-  // const fetch = (url)=>{
-    
-  // }
+  const fetch = (url)=>{
+    axios
+    .get(`${url}pokemon?limit=40`)
+    .then((res) => {
+      setNextPoke(res.data.next);
+      setPrevPoke(res.data.previous);
+      return res.data.results;
+    })
+    .then((results) => {
+      return Promise.all(results.map((res) => axios.get(res.url)));
+    })
+    .then((results) => {
+      setPoke(results.map((res) => res.data));
+    });
+   }
+
 
   useEffect(() => {
-setLoader(true);
-
-      axios.get(`${url}pokemon?limit=40`)
-    .then((res) => {
-      return res.data.results
-    })
-    .then((results) => {
-      return Promise.all(
-        results.map((res) => 
-        axios.get(res.url))
-        )
-    })
-    .then((results) => {
-      setPoke(results.map((res) =>res.data)
-      )
-    })
- 
+    setLoader(true);
+    fetch(url);
+      
     setLoader(false);
-  },[url]);
+  }, [url]);
 
-  if(loader) return <Prueba/>
-  return (    
+  if (loader) <Prueba />;
+  return (
     <Grid>
-        
-        <Button href="/pokeList">View on list</Button>
+      <Button href="/pokeList">View on list</Button>
 
-        <Grid container justifyContent='center' padding={2} color='white'><Typography sx={{fontSize: '2.2rem'}} variant="h3">Pokemon's List</Typography></Grid>
-        <Grid container spacing={2} justifyContent='center' >
-           {poke.map((item, index) => (
-              <PokeCard 
-              key={item.id} 
-              id= {item.id} 
-              name={item.name[0].toUpperCase() + item.name.slice(1)} 
-              imgSrc={item.sprites.front_default}
-              type={item.types}
-              href={`/poke/${item.id}`}
-              />
-           ))} 
-            <Grid container justifyContent='flex-end'>
-              <Button sx={{marginTop: '20px'}} variant="contained" onClick={()=>alert(`Aún no tenemos ésta función, lo siento Ash`)}>Siguiente</Button>
-            </Grid>
-       </Grid>
+      <Grid container justifyContent="center" padding={2} color="white">
+        <Typography sx={{ fontSize: "2.2rem" }} variant="h3">
+          Pokemon's List
+        </Typography>
       </Grid>
-     
+      <Grid container spacing={2} justifyContent="center">
+        {poke.map((item, index) => (
+          <PokeCard
+            key={item.id}
+            id={item.id}
+            name={item.name[0].toUpperCase() + item.name.slice(1)}
+            imgSrc={item.sprites.front_default}
+            type={item.types}
+            href={`/poke/${item.id}`}
+          />
+        ))}
+        <Grid container justifyContent='space-around'>
+          {prevPoke? <Button
+            sx={{ marginTop: "20px" }}
+            variant="contained"
+            onClick={()=> prevPoke? fetch(prevPoke) : ''}
+          >
+            Anterior
+          </Button> : '' }
+          <Button
+            sx={{ marginTop: "20px" }}
+            variant="contained"
+            onClick={()=> nextPoke? fetch(nextPoke) : ''}
+          >
+            Siguiente
+          </Button>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };
 
