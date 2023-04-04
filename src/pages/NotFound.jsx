@@ -1,6 +1,6 @@
 import React from 'react';
 import {Box, Typography} from "@mui/material";
-import psyduc from '../assets/img/png.png'
+import psyduc from '../assets/img/png.png';
 import ButtonToHome from '../Components/Button/ButtonToHome';
 
 const NotFound = () => {
@@ -16,4 +16,4 @@ const NotFound = () => {
   )
 }
 
-export default NotFound
+export default NotFound;

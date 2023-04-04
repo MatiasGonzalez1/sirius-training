@@ -6,6 +6,7 @@ import {
   ListItem,
   List,
   ListItemText,
+  Link,
 } from "@mui/material";
 
 import LabelImportantIcon from "@mui/icons-material/LabelImportant";
@@ -20,6 +21,8 @@ const PokeInfo = ({
   id,
   preEvolution,
   finalEvolution,
+  hrefPre,
+  hrefFinal,
   data,
 }) => {
   const alt = `img-${name}`;
@@ -212,26 +215,28 @@ const PokeInfo = ({
             {preEvolution ? (
               <Grid item xs={6} justifyContent="center">
                 <Typography variant="subtitle1">
-                  Pre Evolution: {preEvolution}
+                  Pre Evolution: <Link href={hrefPre} underline="none">{preEvolution}</Link>
                 </Typography>
               </Grid>
             ) : (
               <Grid item xs={6} justifyContent="center">
                 <Typography variant="subtitle1">
-                  Pre Evolution: No tiene
+                  Pre Evolution:
                 </Typography>
               </Grid>
             )}
             {finalEvolution ? (
               <Grid item xs={6}>
+                      
                 <Typography variant="subtitle1">
-                  Final Evolution: {finalEvolution}
+                  Final Evolution: <Link href={hrefFinal} underline="none">{finalEvolution}</Link>
                 </Typography>
+                
               </Grid>
             ) : (
               <Grid item xs={6} justifyContent="center">
                 <Typography variant="subtitle1">
-                  Final Evolution: No tiene
+                  Final Evolution:
                 </Typography>
               </Grid>
             )}

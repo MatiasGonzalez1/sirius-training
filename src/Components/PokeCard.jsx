@@ -23,18 +23,20 @@ const PokeCard = ({
   const alt = `img-${name}`;
 
   const sxHover = {
-    boxShadow: 3,
+    boxShadow: 15,
+    background:'#ffffff24',
+    color:'#fff',
     "&:hover": {
-      // transiton: "1s",  
-      transform: "scale(1.02)",
       border: "1px solid #0c0b0b4f",
+      background:'#e6dada',
+      color: '#000'
     },
   };
 
   return (
     <Grid item xs={8} md={6} lg={4} maxWidth="500px">
       <Link href={href} underline="none">
-        <Paper elevation={15} sx={sxHover}>
+        <Paper elevation={15} sx={sxHover} >
           <Grid container justifyContent="flex-start" padding={1}>
             <Typography>{id}</Typography>
           </Grid>

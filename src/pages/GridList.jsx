@@ -8,7 +8,6 @@ import Prueba from "../Components/Loader/Prueba.jsx";
 const GridList = () => {
   const [poke, setPoke] = useState([]);
   const [url, setUrl] = useState(Request);
-  const shot = `${url}/pokemon`;
   const [nextPoke, setNextPoke] = useState("");
   const [prevPoke, setPrevPoke] = useState("");
 
@@ -16,7 +15,7 @@ const GridList = () => {
 
   const fetch = (url)=>{
     axios
-    .get(`${url}pokemon?limit=40`)
+    .get(`${url}pokemon?limit=6`)
     .then((res) => {
       setNextPoke(res.data.next);
       setPrevPoke(res.data.previous);
@@ -61,14 +60,14 @@ const GridList = () => {
         ))}
         <Grid container justifyContent='space-around'>
           {prevPoke? <Button
-            sx={{ marginTop: "20px" }}
+            sx={{ margin: "20px" }}
             variant="contained"
             onClick={()=> prevPoke? fetch(prevPoke) : ''}
           >
             Anterior
           </Button> : '' }
           <Button
-            sx={{ marginTop: "20px" }}
+            sx={{ margin: "20px" }}
             variant="contained"
             onClick={()=> nextPoke? fetch(nextPoke) : ''}
           >

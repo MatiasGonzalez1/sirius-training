@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import PokeInfo from "../Components/PokeInfo";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 import { Grid } from "@mui/material";
 import Request from "../utils/Request.js";
-import { useParams } from "react-router-dom";
+import PokeInfo from "../Components/PokeInfo";
 import ButtonToHome from "../Components/Button/ButtonToHome";
 import Prueba from "../Components/Loader/Prueba.jsx";
 
@@ -12,48 +12,54 @@ const OnePoke = () => {
   const [url, setUrl] = useState(Request);
   const [data, setData] = useState([]);
   const [imgData, setImgData] = useState([]);
-  const { id } = useParams();
   const [evolution, nextEvolution] = useState([]);
   const [finalEvolution, setFinalEvolution] = useState([]);
   const [preEvolution, setPreEvolution] = useState([]);
   const [loader, setLoader] = useState(false);
+  const { id } = useParams();
 
    const fetch = (url)=>{
     axios.get(`${url}pokemon/${id}`).then((res) => {
       setPoke(res.data);
       setData(res.data.stats);
-      setImgData(res.data.sprites.other.home.front_default? res.data.sprites.other.home.front_default : res.data.sprites.front_default );
+      
+      //toma otra imagen para mostrar si la principal no está disponible
+      setImgData(res.data.sprites.other.home.front_default? res.data.sprites.other.home.front_default : res.data.sprites.front_default);
       const species = res.data.species.url;
-      const idSpecies = species.split("/")[6];
-      // console.log(idSpecies);
-      // console.log(species);
       axios.get(species).then((res) => {
-        const resSpecies = res.data;
-        const evolvesFrom = resSpecies.evolves_from_species.name;
-        resSpecies.evolves_from_species.name == null ? setPreEvolution('') : setPreEvolution(evolvesFrom);
-        const evolutionChain = resSpecies.evolution_chain.url;
+
+        res.data &&  setPreEvolution(res.data.evolves_from_species.name);
+        const evolutionChain = res.data.evolution_chain.url;
         axios.get(evolutionChain).then((res) => {
+          // console.log(res.data)
           const resEvolution = res.data.chain
           nextEvolution(resEvolution.evolves_to[0].species.name);
-          resEvolution.evolves_to[0].evolves_to[0].species == null ? setFinalEvolution('') : setFinalEvolution(resEvolution.evolves_to[0].evolves_to[0].species.name);
+          resEvolution.evolves_to[0].evolves_to[0].species && setFinalEvolution(resEvolution.evolves_to[0].evolves_to[0].species.name);
         });
       });
       setLoader(false);
     }
-    );
+    )
   }
 
+  // useEffect(()=>{
+  //   axios.get(`${url}pokemon/${id}`).then((res) => {
+  //     const species = res.data.species.url;
+  //     axios.get(species).then((res) => {
+  //       const evolution = res.data.evolution_chain.url
+  //       axios.get(evolution).then((res=>{
+  //         (res.data.chain.evolves_to[0].species.name)
+  //       }))
+  //     });
+  //   })
+  // },[])
 
   useEffect(() => {
-
     setLoader(true);
-
     fetch(url);
-
-    
   }, [url]);
 
-if(loader){
+  if(loader){
   return <Prueba/>
 } else
    return (
@@ -67,8 +73,10 @@ if(loader){
           data={data}
           ability={poke?.abilities}
           move={poke?.moves}
-          preEvolution={preEvolution}
-          finalEvolution={finalEvolution}
+          preEvolution={preEvolution.length === 0 ? 'No tiene' : preEvolution}
+          hrefPre={preEvolution}
+          finalEvolution={finalEvolution === poke.name ? 'Finally' : finalEvolution}
+          hrefFinal={finalEvolution}          
         />
         <ButtonToHome/>
        </Grid>
