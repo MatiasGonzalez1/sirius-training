@@ -1,3 +1,6 @@
+/*Paleta de colores para los tipos de pokemon */
+
+
 const typeColor = {
   bug: "#26de81",
   steel: "#c7c6c6ce",

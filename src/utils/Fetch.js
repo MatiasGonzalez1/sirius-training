@@ -1,3 +1,11 @@
+
+/************************************************ATTENTION************************************************/
+
+/***********************Esta forma de traer los datos por medio de fetch quedó desactualizada y en cambio se usó axios*******************/
+
+
+
+
 import React, { useEffect, useState } from "react";
 
 const Fetch = () => {

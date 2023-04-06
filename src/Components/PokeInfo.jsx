@@ -20,8 +20,10 @@ const PokeInfo = ({
   imgSrc,
   id,
   preEvolution,
+  evolution,
   finalEvolution,
   hrefPre,
+  hrefNext,
   hrefFinal,
   data,
 }) => {
@@ -33,6 +35,8 @@ const PokeInfo = ({
     borderRadius: '5px',
     margin:'5px',
   }
+
+  console.log(finalEvolution)
   
   return (
     <Grid item sx={{ margin: "30px 0px" }}>
@@ -213,20 +217,28 @@ const PokeInfo = ({
             sx={{ padding: "30px" }}
           >
             {preEvolution ? (
-              <Grid item xs={6} justifyContent="center">
+              <Grid item xs={4} justifyContent="center">
                 <Typography variant="subtitle1">
                   Pre Evolution: <Link href={hrefPre} underline="none">{preEvolution}</Link>
                 </Typography>
               </Grid>
-            ) : (
-              <Grid item xs={6} justifyContent="center">
+            ): (
+              <Grid item xs={4} justifyContent="center">
                 <Typography variant="subtitle1">
-                  Pre Evolution:
+                Pokemon Base
                 </Typography>
               </Grid>
             )}
-            {finalEvolution ? (
-              <Grid item xs={6}>
+            {evolution && (
+              <Grid item xs={4}>  
+                <Typography variant="subtitle1">
+                  Evolution: <Link href={hrefNext} underline="none">{evolution}</Link>
+                </Typography>
+                
+              </Grid>
+            )}
+            {finalEvolution !== name && finalEvolution !== undefined ? (
+              <Grid item xs={4}>
                       
                 <Typography variant="subtitle1">
                   Final Evolution: <Link href={hrefFinal} underline="none">{finalEvolution}</Link>
@@ -234,12 +246,13 @@ const PokeInfo = ({
                 
               </Grid>
             ) : (
-              <Grid item xs={6} justifyContent="center">
+              <Grid item xs={4} justifyContent="center">
                 <Typography variant="subtitle1">
-                  Final Evolution:
+                Final Evolution
                 </Typography>
               </Grid>
-            )}
+            )
+            }
           </Grid>
         </Paper>
     </Grid>

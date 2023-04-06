@@ -59,7 +59,7 @@ const PokeCard = ({
                   <Typography
                     key={i}
                     display="inline"
-                    sx={{ padding: "0px 3px", margin:'5px 2px', backgroundColor:`${themeType(one.type.name)}`, borderRadius:'6px' }}
+                    sx={{ padding: "0px 3px", maxWidth:'30%', margin:'5px 2px', backgroundColor:`${themeType(one.type.name)}`, borderRadius:'6px' }}
                   >
                     <LabelImportantIcon sx={{fontSize:'10px', margin:'0px 5px 0px 5px'}} />
                     {one.type.name}

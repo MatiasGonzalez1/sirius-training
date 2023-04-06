@@ -15,7 +15,7 @@ const GridList = () => {
 
   const fetch = (url)=>{
     axios
-    .get(`${url}pokemon?limit=6`)
+    .get(`${url}pokemon?limit=18`)
     .then((res) => {
       setNextPoke(res.data.next);
       setPrevPoke(res.data.previous);
@@ -40,7 +40,7 @@ const GridList = () => {
   if (loader) <Prueba />;
   return (
     <Grid>
-      <Button href="/pokeList">View on list</Button>
+      {/* <Button href="/pokeList">View on list</Button> Esta porción de código se comenta para implementar nueva funcionalidad*/}
 
       <Grid container justifyContent="center" padding={2} color="white">
         <Typography sx={{ fontSize: "2.2rem" }} variant="h3">
