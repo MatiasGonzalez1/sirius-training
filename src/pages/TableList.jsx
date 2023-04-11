@@ -12,7 +12,7 @@ import axios from "axios";
 import { Button, Grid, Typography, Container } from "@mui/material";
 import Request from "../utils/Request.js";
 import Pokelist from "../Components/PokeList.jsx";
-import ButtonToHome from "../Components/Button/ButtonToHome.jsx";
+import ButtonReusable from "../Components/Button/ButtonReusable.jsx";
 
 const TableList = () => {
   const [poke, setPoke] = useState([]);
@@ -57,7 +57,7 @@ const TableList = () => {
           />
         ))}    
         
-        <ButtonToHome/>
+        <ButtonReusable text='Return to Home' hrefButton='/'/>
       </Container>
      
   );

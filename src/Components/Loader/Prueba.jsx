@@ -4,13 +4,14 @@ import { Container } from '@mui/system';
 import CircularProgress from '@mui/material/CircularProgress';
 import img from '../../assets/img/pikapika.png';
 import './loader.css';
+import { Typography } from '@mui/material';
 
 const Prueba = () => {
   return (
      <Container sx={{textAlign: 'center'}}>
       <img className='loaderImg' src={img} alt='pikachu-img'/>
       <CircularProgress color="primary" />
-      <h1 style={{color: 'white'}}>Pika pi?</h1>
+      <Typography variant='h2' sx={{color: 'white'}}>Pika pi?</Typography>
      </Container>
   )
 }

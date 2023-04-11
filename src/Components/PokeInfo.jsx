@@ -9,7 +9,8 @@ import {
   Link,
 } from "@mui/material";
 
-import LabelImportantIcon from "@mui/icons-material/LabelImportant";
+import {LabelImportant, ArrowBackIos, ArrowForwardIos} from "@mui/icons-material";
+
 import { themeType } from "../utils/ThemeColor";
 
 const PokeInfo = ({
@@ -35,8 +36,6 @@ const PokeInfo = ({
     borderRadius: '5px',
     margin:'5px',
   }
-
-  console.log(finalEvolution)
   
   return (
     <Grid item sx={{ margin: "30px 0px" }}>
@@ -65,7 +64,7 @@ const PokeInfo = ({
                     display="inline"
                     sx={{ padding: "5px", margin:'2px', backgroundColor:`${themeType(one.type.name)}`, borderRadius:'10px' }}
                   >
-                    <LabelImportantIcon
+                    <LabelImportant
                       sx={{ fontSize: "10px", margin: "0px 5px 0px 5px"}}
                     />
                     {one.type.name}
@@ -255,6 +254,9 @@ const PokeInfo = ({
             }
           </Grid>
         </Paper>
+        <Grid item>
+
+        </Grid>
     </Grid>
   );
 };

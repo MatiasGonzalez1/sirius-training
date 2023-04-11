@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import {useNavigate, useParams } from "react-router-dom";
+import {redirect, useNavigate, useParams } from "react-router-dom";
 import { Grid } from "@mui/material";
 import Request from "../utils/Request.js";
 import PokeInfo from "../Components/PokeInfo";
-import ButtonToHome from "../Components/Button/ButtonToHome";
 import Prueba from "../Components/Loader/Prueba.jsx";
 import NotFound from '../pages/NotFound.jsx';
+import ButtonReusable from "../Components/Button/ButtonReusable.jsx";
+import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 
 const OnePoke = () => {
   const [poke, setPoke] = useState({});
@@ -18,12 +19,13 @@ const OnePoke = () => {
   const [preEvolution, setPreEvolution] = useState();
   const [loader, setLoader] = useState(false);
   const { id } = useParams();
+  const navigate = useNavigate()
+
 
    const fetch = async (url)=>{
     await axios.get(`${url}pokemon/${id}`).then((res) => {
       setPoke(res.data);
       setData(res.data.stats);
-      
       //toma otra imagen para mostrar si la principal no está disponible
       setImgData(res.data.sprites.other.home.front_default? res.data.sprites.other.home.front_default : res.data.sprites.front_default);
       const species = res.data.species.url;
@@ -42,11 +44,13 @@ const OnePoke = () => {
     }
     ).catch(error=>{
       console.log(error)
+      setLoader(false)
+      navigate('*')      
     })
   }
 
   useEffect(()=>{
-    axios.get(`${url}pokemon/${id}`).then((res) => {
+    axios.get(`${url}pokemon/${id}`).then((res) => {    
       const species = res.data.species.url;
       axios.get(species).then((res) => {
         const evolution = res.data.evolution_chain.url;
@@ -62,13 +66,15 @@ const OnePoke = () => {
     fetch(url);
   }, [url]);
 
+
   if(loader){
   return <Prueba/>
 } else
    return (
       <Grid item xs={12} md={12} lg={12}>
         <Grid> 
-        <ButtonToHome/>
+        <ButtonReusable text='Return to Home' hrefButton='/'/>
+          <ButtonReusable text={<ArrowBackIos/>} hrefButton={parseInt(poke.id) -1}/>
           <PokeInfo
           id={poke?.id}
           name={poke?.name}
@@ -84,6 +90,7 @@ const OnePoke = () => {
           finalEvolution={finalEvolution}
           hrefFinal={finalEvolution}    
         />
+        <ButtonReusable text={<ArrowForwardIos/>} hrefButton={poke.id + 1}/>
        </Grid>
       </Grid>
      
