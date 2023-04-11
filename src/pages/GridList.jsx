@@ -66,13 +66,13 @@ const GridList = () => {
           >
             Anterior
           </Button> : '' }
-          <Button
+          {nextPoke? <Button
             sx={{ margin: "20px" }}
             variant="contained"
             onClick={()=> nextPoke? fetch(nextPoke) : ''}
           >
             Siguiente
-          </Button>
+          </Button> : ''} 
         </Grid>
       </Grid>
     </Grid>
