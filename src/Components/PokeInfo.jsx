@@ -9,7 +9,7 @@ import {
   Link,
 } from "@mui/material";
 
-import {LabelImportant, ArrowBackIos, ArrowForwardIos} from "@mui/icons-material";
+import {LabelImportant} from "@mui/icons-material";
 
 import { themeType } from "../utils/ThemeColor";
 
@@ -27,39 +27,52 @@ const PokeInfo = ({
   hrefNext,
   hrefFinal,
   data,
+  chain,
 }) => {
   const alt = `img-${name}`;
 
   const sxItemBox={
-    justifyContent:"space-around",
-    border:' 2px solid #1d1b1bae',
-    borderRadius: '5px',
     margin:'5px',
+    textAlign:'start',
+    padding:'0px 10px',
+    minWidth:'200px'
   }
   
+  const sxImg={
+    height:'80%',
+    "&:hover": {
+     
+    },
+  }
+
   return (
-    <Grid item sx={{ margin: "30px 0px" }}>
-        <Paper elevation={15}>
+    <Grid item sx={{ margin: "30px 0px", minWidth:'80%' }}>
+        <Paper elevation={15} > 
+          {/* poke id */}
           <Grid container justifyContent="flex-start" padding={1}>
             <Typography>{id}</Typography>
           </Grid>
 
+{/* image */}
           <Grid container justifyContent="center">
-            <Grid item container justifyContent="center" sx={{width:'100%', height:'80%'}}>             
+            <Grid item container justifyContent="center" lg={12}  sx={sxImg}>             
               <img src={imgSrc} alt={alt} width='30%'/>
             </Grid>
           </Grid>
 
+{/* name */}
           <Grid container justifyContent="center">
             <Typography variant="h5">{name}</Typography>
           </Grid>
 
-          <Grid container justifyContent="center" marginTop={3}>
+{/* type */}
+          <Grid container
+          justifyContent="center" marginTop={3}>
             <Grid container justifyContent="center" padding={1}>
-              <Typography variant="subtitle2">Types:</Typography>
-              <Grid item xs={8} textAlign="end">
+              <Grid item xs={8} textAlign="center">
                 {type?.map((one, i) => (
-                  <Typography
+
+     <Typography
                     key={i}
                     display="inline"
                     sx={{ padding: "5px", margin:'2px', backgroundColor:`${themeType(one.type.name)}`, borderRadius:'10px' }}
@@ -74,33 +87,43 @@ const PokeInfo = ({
             </Grid>
           </Grid>
 
+{/* stats */}
           {data ? (
-            <Grid container justifyContent="center" marginTop={3}>
+            <Grid container justifyContent='center' marginTop={3}>
               <Grid item>
                 <Typography variant="subtitle2">Stats:</Typography>
               </Grid>
 
-              <Grid container justifyContent="center">
-                {data.map((item, i) => (
-                  <Grid
+              <Grid container
+              width='66%'
+              >
+                <Grid
                     container
                     item
-                    key={i}
-                    xs={5}
+                    flexDirection='column'
+                    xs={1}
+                    sm={2}
+                    md={3}
+                    lg ={6}
                     sx={sxItemBox}
                   >
-                    <Grid item>
-                      <Typography>
+                {data.map((item, i) => (
+                  
+                    <Grid item key={i}>                     
+
+                      <Typography variant="subtitle2">
                         {item.stat.name}: {item.base_stat}
                       </Typography>
-                    </Grid>
+                    </Grid> ))}
                   </Grid>
-                ))}
+               
               </Grid>
             </Grid>
           ) : (
             ""
           )}
+
+{/* ability */}
 
           {ability ? (
             // <List>
@@ -124,19 +147,25 @@ const PokeInfo = ({
             // ) : (
             //   ""
             <Grid container justifyContent="center" marginTop={3}>
-              <Grid item>
+              <Grid item >
                 <Typography variant="subtitle2">Ability:</Typography>
               </Grid>
-              <Grid container justifyContent="center">
+
+              <Grid container width='66%' >
                 {ability?.map((one, i) => (
                   <Grid
                     container
                     item
                     key={i}
-                    xs={5}
+                    flexDirection='column'
+                    xs={1}
+                    sm={2}
+                    md={3}
+                    lg ={6}
+                    
                     sx={sxItemBox}
                   >
-                    <Grid item>
+                    <Grid item >
                       <Typography variant='body1'>
                         {i + 1}- 
                       
@@ -151,6 +180,7 @@ const PokeInfo = ({
             ""
           )}
 
+{/* moves */}
           {move ? (
             <Grid container justifyContent="center" marginTop={2}>
               <Typography
@@ -162,7 +192,7 @@ const PokeInfo = ({
               <List
                 sx={{
                   width: "80%",
-                  maxWidth: "60%",
+                  maxWidth: "66%",
                   bgcolor: "background.paper",
                   position: "relative",
                   overflow: "auto",
@@ -207,7 +237,29 @@ const PokeInfo = ({
             // </Grid>
             ""
           )}
+{/* Evolution chain */}
+ {<Grid
+            container
+            justifyContent="center"
+            textAlign="center"
+            padding={1}
+            sx={{ padding: "30px", border:'1px solid red' }}
+          >
+            <Typography> All evolution Chain:
+              <Typography variant="subtitle2">
+                2° step
+              </Typography>
+              {chain?.map((name, i)=>(
+              <Link sx={{padding:'5px', display:'block'}} key={i} href={`/poke/${name}`} >
+                {name}
+              </Link>            
+            ))}
+            </Typography>
+           
+          </Grid>}
 
+
+{/* evolutions */}
           <Grid
             container
             justifyContent="center"
@@ -236,13 +288,11 @@ const PokeInfo = ({
                 
               </Grid>
             )}
-            {finalEvolution !== name && finalEvolution !== undefined ? (
+            {finalEvolution && finalEvolution !== name && finalEvolution !== undefined ? (
               <Grid item xs={4}>
-                      
                 <Typography variant="subtitle1">
                   Final Evolution: <Link href={hrefFinal} underline="none">{finalEvolution}</Link>
                 </Typography>
-                
               </Grid>
             ) : (
               <Grid item xs={4} justifyContent="center">
@@ -254,9 +304,6 @@ const PokeInfo = ({
             }
           </Grid>
         </Paper>
-        <Grid item>
-
-        </Grid>
     </Grid>
   );
 };

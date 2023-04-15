@@ -14,6 +14,7 @@ const GridList = () => {
   const [loader, setLoader] = useState(false);
 
   const fetch = (url)=>{
+    setLoader(true);
     axios
     .get(`${url}pokemon?limit=18`)
     .then((res) => {
@@ -31,9 +32,7 @@ const GridList = () => {
 
 
   useEffect(() => {
-    setLoader(true);
     fetch(url);
-      
     setLoader(false);
   }, [url]);
 

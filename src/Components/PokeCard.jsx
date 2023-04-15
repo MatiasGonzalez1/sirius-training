@@ -34,7 +34,8 @@ const PokeCard = ({
   };
 
   return (
-    <Grid item xs={8} md={6} lg={4} maxWidth="500px">
+   
+      <Grid item xs={8} md={6} lg={4} maxWidth="500px">
       <Link href={href} underline="none">
         <Paper elevation={15} sx={sxHover} >
           <Grid container justifyContent="flex-start" padding={1}>
@@ -51,10 +52,9 @@ const PokeCard = ({
             <Typography variant="h5">{name}</Typography>
           </Grid>
 
-          <Grid container justifyContent="center">
+          <Grid container justifyContent="center" width='100%'>
             <Grid container justifyContent="space-around" padding={1}>
-              <Typography variant="subtitle2">Types:</Typography>
-              <Grid item xs={8} textAlign="end">
+              <Grid item xs={12} textAlign="center" >
                 {type?.map((one, i) => (
                   <Typography
                     key={i}
@@ -122,6 +122,7 @@ const PokeCard = ({
         </Paper>
       </Link>
     </Grid>
+    
   );
 };
 

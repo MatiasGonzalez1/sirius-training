@@ -1,8 +1,8 @@
 body{
   width: 100%;
   height: 100%;
-  background-color: #e02d92;
-  background-size: contain;
+  /* background-color: #e02d92; */
+  background-size: cover;
   background-image: linear-gradient(225deg, #e03194 0%, #63378a 50%, #1c6ca4 100%);
   padding-bottom: 50px;
 }
