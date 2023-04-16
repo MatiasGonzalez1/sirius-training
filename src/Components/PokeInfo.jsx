@@ -7,6 +7,7 @@ import {
   List,
   ListItemText,
   Link,
+  Button
 } from "@mui/material";
 
 import {LabelImportant} from "@mui/icons-material";
@@ -28,6 +29,7 @@ const PokeInfo = ({
   hrefFinal,
   data,
   chain,
+  chainFinal
 }) => {
   const alt = `img-${name}`;
 
@@ -46,7 +48,7 @@ const PokeInfo = ({
   }
 
   return (
-    <Grid item sx={{ margin: "30px 0px", minWidth:'80%' }}>
+    <Grid item sx={{ margin: "30px 0px", minWidth:'80%'}}>
         <Paper elevation={15} > 
           {/* poke id */}
           <Grid container justifyContent="flex-start" padding={1}>
@@ -87,9 +89,11 @@ const PokeInfo = ({
             </Grid>
           </Grid>
 
+<Grid container justifyContent='space-around' width='80%' flexWrap='wrap' gap='10px'>
 {/* stats */}
           {data ? (
-            <Grid container justifyContent='center' marginTop={3}>
+            <Grid container justifyContent='center' marginTop={3} width='50%
+            '>
               <Grid item>
                 <Typography variant="subtitle2">Stats:</Typography>
               </Grid>
@@ -146,7 +150,7 @@ const PokeInfo = ({
             //   </Grid>
             // ) : (
             //   ""
-            <Grid container justifyContent="center" marginTop={3}>
+            <Grid container justifyContent="center" marginTop={3} width='48%'>
               <Grid item >
                 <Typography variant="subtitle2">Ability:</Typography>
               </Grid>
@@ -179,6 +183,8 @@ const PokeInfo = ({
           ) : (
             ""
           )}
+</Grid>
+
 
 {/* moves */}
           {move ? (
@@ -238,25 +244,50 @@ const PokeInfo = ({
             ""
           )}
 {/* Evolution chain */}
- {<Grid
+ {chain? <Grid
             container
             justifyContent="center"
             textAlign="center"
-            padding={1}
+            padding={1}          
             sx={{ padding: "30px", border:'1px solid red' }}
           >
-            <Typography> All evolution Chain:
+            <Grid item width='80%' flexWrap='wrap' justifyContent='space-around' >
+              <Typography> All evolution Chain:
               <Typography variant="subtitle2">
                 2° step
               </Typography>
               {chain?.map((name, i)=>(
-              <Link sx={{padding:'5px', display:'block'}} key={i} href={`/poke/${name}`} >
+              <Button sx={{padding:'5px', width:'200px'}} key={i} href={`/poke/${name}`} >
                 {name}
-              </Link>            
+              </Button>            
             ))}
             </Typography>
+            </Grid>
+            
            
-          </Grid>}
+          </Grid> : ''}
+          {chainFinal ? <Grid
+            container
+            justifyContent="center"
+            textAlign="center"
+            padding={1}          
+            sx={{ padding: "30px", border:'1px solid red' }}
+          >
+            <Grid item width='80%' flexWrap='wrap' justifyContent='space-around' >
+              <Typography> All evolution Chain:
+              <Typography variant="subtitle2">
+                Final step
+              </Typography>
+              {chainFinal?.map((name, i)=>(
+              <Button sx={{padding:'5px', width:'200px'}} key={i} href={`/poke/${name}`} >
+                {name}
+              </Button>            
+            ))}
+            </Typography>
+            </Grid>
+            
+           
+          </Grid> : ''}
 
 
 {/* evolutions */}

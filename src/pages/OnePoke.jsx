@@ -21,7 +21,10 @@ const OnePoke = () => {
   const [loader, setLoader] = useState(false);
 
   const [midEvo, setMidEvo] = useState([]);
-  const evo = [];
+  const [finEvo, setFinalEvo] = useState([]);
+
+  const chain2 = [];
+  const chain3 = [];
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -75,18 +78,26 @@ const OnePoke = () => {
         const evolution = res.data.evolution_chain.url;
         axios.get(evolution).then((res) => {
           const midleEvo = res.data.chain.evolves_to;
-          const finalEvo = res.data.chain;
+          const finalEvo = res.data.chain.evolves_to[0].evolves_to;
           console.log(finalEvo);
           nextEvolution(res.data.chain.evolves_to[0].species.name);
 
           //evolution chain step 2
           midleEvo.forEach((element) => {
-            evo.push(element.species.name);
-            const evoFilter = [...new Set(evo)];
+            chain2.push(element.species.name);
+            const evoFilter = [...new Set(chain2)];
             setMidEvo(evoFilter);
           });
 
           //evolution chain step 3
+  
+          finalEvo.forEach((element)=>{
+            chain3.push(element.species.name);
+            const evoFilter = [...new Set(chain3)];
+            setFinalEvo(evoFilter);
+
+            console.log(chain3)
+          })
         });
       });
     });
@@ -97,7 +108,6 @@ const OnePoke = () => {
     fetch(url);
   }, [url]);
 
-  console.log(midEvo);
   if (loader) {
     return <Prueba />;
   } else
@@ -105,13 +115,23 @@ const OnePoke = () => {
       <Grid item>
         <Grid>
           <ButtonReusable text="Return to Home" hrefButton="/" />
-          {poke.id > 0 && poke.id !== 1 ? (
-            <Button href={parseInt(poke.id) - 1}>
+         <Grid container justifyContent='space-around' paddingTop='50px'>
+         {poke.id > 0 && poke.id !== 1 ? (
+            <Button variant='outlined' sx={{color:'white',borderRadius:'0px 10px 0px 10px', border:'1px solid #fff'}} href={parseInt(poke.id) - 1}>
               <ArrowBackIos />
             </Button>
           ) : (
             ""
           )}
+           {poke.id ? (
+            <Button variant='outlined' sx={{color:'white',borderRadius:'10px 0px 10px 0px', border:'1px solid #fff'}}  href={parseInt(poke.id) + 1}>
+              {" "}
+              <ArrowForwardIos />
+            </Button>
+          ) : (
+            ""
+          )}
+         </Grid>
           <PokeInfo
             id={poke?.id}
             name={poke?.name}
@@ -127,20 +147,14 @@ const OnePoke = () => {
             //     ? ""
             //     : evolution
             // }
-            hrefNext={evolution}
-            finalEvolution={finalEvolution}
+            // hrefNext={evolution}
+            finalEvolution={finalEvolution? finalEvolution : ''}
             hrefFinal={finalEvolution}
             chain={midEvo}
             chainName={midEvo}
+            chainFinal={finEvo}
           />
-          {poke.id ? (
-            <Button href={parseInt(poke.id) + 1}>
-              {" "}
-              <ArrowForwardIos />
-            </Button>
-          ) : (
-            ""
-          )}
+         
         </Grid>
       </Grid>
     );

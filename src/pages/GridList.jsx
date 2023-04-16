@@ -28,6 +28,8 @@ const GridList = () => {
     .then((results) => {
       setPoke(results.map((res) => res.data));
     });
+
+    window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
    }
 
 
@@ -68,7 +70,7 @@ const GridList = () => {
           {nextPoke? <Button
             sx={{ margin: "20px" }}
             variant="contained"
-            onClick={()=> nextPoke? fetch(nextPoke) : ''}
+            onClick={()=> nextPoke? fetch(nextPoke)  : ''}
           >
             Siguiente
           </Button> : ''} 
