@@ -35,7 +35,7 @@ const SearchBar = () => {
          key={pokemon.id}
          id={pokemon.id}
          name={pokemon.name[0].toUpperCase() + pokemon.name.slice(1)}
-         imgSrc={pokemon.sprites.front_default? pokemon.sprites.front_default : pokemon.sprites.other.home.front_default}
+         imgSrc={pokemon.sprites.front_default? pokemon.sprites.front_default : pokemon.sprites.other.home.front_default} 
          type={pokemon.types}
          href={`/poke/${pokemon.id}`}
        />
