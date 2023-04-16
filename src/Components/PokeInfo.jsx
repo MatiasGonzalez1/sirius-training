@@ -180,9 +180,7 @@ const PokeInfo = ({
                 ))}
               </Grid>
             </Grid>
-          ) : (
-            ""
-          )}
+          ) : null}
 </Grid>
 
 
@@ -227,7 +225,7 @@ const PokeInfo = ({
                 ))}
               </List>
             </Grid>
-          ) : (
+          ) : null
             // <Grid
             //   container
             //   justifyContent="flex-start"
@@ -241,8 +239,8 @@ const PokeInfo = ({
             //     ))}
             //   </Select>
             // </Grid>
-            ""
-          )}
+            
+          }
 {/* Evolution chain */}
  {chain? <Grid
             container
@@ -265,7 +263,7 @@ const PokeInfo = ({
             </Grid>
             
            
-          </Grid> : ''}
+          </Grid>  : null}
           {chainFinal ? <Grid
             container
             justifyContent="center"
@@ -287,7 +285,7 @@ const PokeInfo = ({
             </Grid>
             
            
-          </Grid> : ''}
+          </Grid>  : null}
 
 
 {/* evolutions */}

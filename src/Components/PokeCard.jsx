@@ -26,10 +26,12 @@ const PokeCard = ({
     boxShadow: 15,
     background:'#ffffff24',
     color:'#fff',
+    transition:'all .5s',
     "&:hover": {
       border: "1px solid #0c0b0b4f",
       background:'#e6dada',
-      color: '#000'
+      color: '#000',
+      boxShadow: '1px 1px 25px 1px #e6dada80'
     },
   };
 
@@ -106,18 +108,14 @@ const PokeCard = ({
                   Pre Evolution: {preEvolution}
                 </Typography>
               </Grid>
-            ) : (
-              ""
-            )}
+            ) : null}
             {finalEvolution ? (
               <Grid item xs={4}>
                 <Typography variant="subtitle2">
                   Final Evolution: {finalEvolution}
                 </Typography>
               </Grid>
-            ) : (
-              ""
-            )}
+            ) : null}
           </Grid>
         </Paper>
       </Link>
