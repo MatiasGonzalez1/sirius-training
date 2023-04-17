@@ -8,7 +8,7 @@ import { Typography } from '@mui/material';
 
 const Prueba = () => {
   return (
-     <Container sx={{textAlign: 'center'}}>
+     <Container sx={{textAlign: 'center'}} height='100vh'>
       <img className='loaderImg' src={img} alt='pikachu-img'/>
       <CircularProgress color="primary" />
       <Typography variant='h2' sx={{color: 'white'}}>Pika pi?</Typography>
@@ -16,4 +16,4 @@ const Prueba = () => {
   )
 }
 
-export default Prueba
+export default Prueba;

@@ -26,15 +26,18 @@ const PokeCard = ({
     boxShadow: 15,
     background:'#ffffff24',
     color:'#fff',
+    transition:'all .5s',
     "&:hover": {
       border: "1px solid #0c0b0b4f",
       background:'#e6dada',
-      color: '#000'
+      color: '#000',
+      boxShadow: '1px 1px 25px 1px #e6dada80'
     },
   };
 
   return (
-    <Grid item xs={8} md={6} lg={4} maxWidth="500px">
+   
+      <Grid item xs={8} md={6} lg={4} maxWidth="500px">
       <Link href={href} underline="none">
         <Paper elevation={15} sx={sxHover} >
           <Grid container justifyContent="flex-start" padding={1}>
@@ -51,10 +54,9 @@ const PokeCard = ({
             <Typography variant="h5">{name}</Typography>
           </Grid>
 
-          <Grid container justifyContent="center">
+          <Grid container justifyContent="center" width='100%'>
             <Grid container justifyContent="space-around" padding={1}>
-              <Typography variant="subtitle2">Types:</Typography>
-              <Grid item xs={8} textAlign="end">
+              <Grid item xs={12} textAlign="center" >
                 {type?.map((one, i) => (
                   <Typography
                     key={i}
@@ -106,22 +108,19 @@ const PokeCard = ({
                   Pre Evolution: {preEvolution}
                 </Typography>
               </Grid>
-            ) : (
-              ""
-            )}
+            ) : null}
             {finalEvolution ? (
               <Grid item xs={4}>
                 <Typography variant="subtitle2">
                   Final Evolution: {finalEvolution}
                 </Typography>
               </Grid>
-            ) : (
-              ""
-            )}
+            ) : null}
           </Grid>
         </Paper>
       </Link>
     </Grid>
+    
   );
 };
 

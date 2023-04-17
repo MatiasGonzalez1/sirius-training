@@ -4,6 +4,8 @@ import axios from "axios";
 import { Button, Grid, Typography } from "@mui/material";
 import Request from "../utils/Request.js";
 import Prueba from "../Components/Loader/Prueba.jsx";
+import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
+import SearchBar from "../Components/SearchBar/SearchBar";
 
 const GridList = () => {
   const [poke, setPoke] = useState([]);
@@ -13,9 +15,29 @@ const GridList = () => {
 
   const [loader, setLoader] = useState(false);
 
+  const up = ()=>{
+    window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
+  }
+
+  const upButtonStyle = {
+    color:'white', 
+    cursor:'pointer', 
+    fontSize:'40px',
+    borderRadius:'50%', 
+    boxShadow: 5,
+    position: 'fixed',
+    right:'15px',
+    bottom:'15px',
+    transition:'all .5s',
+    "&:hover":{
+      boxShadow: '1px 1px 25px 1px #e6dada80'
+    }
+  }
+
   const fetch = (url)=>{
+    setLoader(true);
     axios
-    .get(`${url}pokemon?limit=18`)
+    .get(`${url}pokemon?limit=36`)
     .then((res) => {
       setNextPoke(res.data.next);
       setPrevPoke(res.data.previous);
@@ -27,19 +49,19 @@ const GridList = () => {
     .then((results) => {
       setPoke(results.map((res) => res.data));
     });
-   }
+    window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
+  }
 
 
   useEffect(() => {
-    setLoader(true);
     fetch(url);
-      
     setLoader(false);
   }, [url]);
 
   if (loader) <Prueba />;
   return (
     <Grid>
+      <SearchBar/>
       {/* <Button href="/pokeList">View on list</Button> Esta porción de código se comenta para implementar nueva funcionalidad*/}
 
       <Grid container justifyContent="center" padding={2} color="white">
@@ -65,16 +87,18 @@ const GridList = () => {
             onClick={()=> prevPoke? fetch(prevPoke) : ''}
           >
             Anterior
-          </Button> : '' }
+          </Button> : null}
           {nextPoke? <Button
             sx={{ margin: "20px" }}
             variant="contained"
-            onClick={()=> nextPoke? fetch(nextPoke) : ''}
+            onClick={()=> nextPoke? fetch(nextPoke)  : null}
           >
             Siguiente
           </Button> : ''} 
         </Grid>
       </Grid>
+      <ArrowCircleUpIcon onClick={up} sx={upButtonStyle} />
+       
     </Grid>
   );
 };
