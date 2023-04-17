@@ -148,10 +148,10 @@ const OnePoke = () => {
             //     : evolution
             // }
             // hrefNext={evolution}
-            finalEvolution={finalEvolution? finalEvolution : ''}
+            finalEvolution={finalEvolution}
             hrefFinal={finalEvolution}
             chain1={base}
-            chain={midEvo}
+            chain2={midEvo}
             chainName={midEvo}
             chainFinal={finEvo  }
           />

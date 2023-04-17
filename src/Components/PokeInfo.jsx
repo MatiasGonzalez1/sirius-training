@@ -29,7 +29,7 @@ const PokeInfo = ({
   hrefFinal,
   data,
   chain1,
-  chain,
+  chain2,
   chainFinal,
 }) => {
   const alt = `img-${name}`;
@@ -38,7 +38,7 @@ const PokeInfo = ({
     margin: "5px",
     textAlign: "start",
     padding: "0px 10px",
-    minWidth: "200px",
+    minWidth: "200px"
   };
 
   const sxImg = {
@@ -47,7 +47,7 @@ const PokeInfo = ({
   };
 
   return (
-    <Grid item sx={{ margin: "30px 0px", minWidth: "80%" }}>
+    <Grid item sx={{ margin: "30px 0px", minWidth: "80%",justifyContent:'center'}}>
       <Paper elevation={15}>
         {/* poke id */}
         <Grid container justifyContent="flex-start" padding={1}>
@@ -93,8 +93,8 @@ const PokeInfo = ({
 
         <Grid
           container
-          justifyContent='space-around'
           width="100%"
+          justifyContent={'center'}
           flexWrap="wrap"
           gap="60px"
         >
@@ -105,22 +105,24 @@ const PokeInfo = ({
               justifyContent="center"
               marginTop={3}
               width="400px"
-              border={'1px 0px solid red'}
-              
-            >
+              borderRadius='0px 10px 0px 10px'
+              border='1px solid #63378a'
+              marginLeft={1} 
+              marginRight={1}
+              >
               <Grid item>
-                <Typography variant="subtitle2">Stats:</Typography>
+                <Typography variant="subtitle2" p={'10px'} borderBottom={'1px solid gray'}>Stats:</Typography>
               </Grid>
 
-              <Grid container width="100%">
+              <Grid container width="100%" justifyContent={'center'}>
                 <Grid
                   container
                   item
                   flexDirection="column"
-                  xs={1}
-                  sm={2}
+                  xs={8}
+                  sm={3}
                   md={3}
-                  lg={6}
+                  lg={4}
                   sx={sxItemBox}
                 >
                   {data.map((item, i) => (
@@ -160,26 +162,26 @@ const PokeInfo = ({
             //   </Grid>
             // ) : (
             //   ""
-            <Grid container justifyContent="center" marginTop={3} width="400px">
+            <Grid container justifyContent="center" marginTop={3} marginLeft={1} marginRight={1} width="400px" minHeight='150px' borderRadius='10px 0px 10px 0px'
+            border='1px solid #63378a'>
               <Grid item>
-                <Typography variant="subtitle2">Ability:</Typography>
+                <Typography variant="subtitle2" p={'10px'} mb={-5} borderBottom={'1px solid gray'}>Ability:</Typography>
               </Grid>
 
-              <Grid container width="100%">
+              <Grid container width="100%" justifyContent={'center'}>
                 {ability?.map((one, i) => (
                   <Grid
                     container
                     item
                     key={i}
-                    flexDirection="column"
-                    xs={1}
-                    sm={2}
+                    xs={8}
+                    sm={3}
                     md={3}
-                    lg={6}
+                    lg={4}
                     sx={sxItemBox}
                   >
-                    <Grid item>
-                      <Typography variant="body1">
+                    <Grid item mb={'-40px'}>
+                      <Typography variant="subtitle2">
                         {i + 1}-{one.ability.name}
                       </Typography>
                     </Grid>
@@ -193,7 +195,7 @@ const PokeInfo = ({
         {/* moves */}
         {
           move ? (
-            <Grid container justifyContent="center" marginTop={2}>
+            <Grid container justifyContent="center" marginTop={5}>
               <Typography
                 variant="subtitle2"
                 sx={{ padding: "10px", height: "40px", display: "block" }}
@@ -224,7 +226,7 @@ const PokeInfo = ({
                     }}
                   >
                     <ListItemText>
-                      <Typography>
+                      <Typography variant="subtitle2">
                         {i + 1} - {one.move.name}
                       </Typography>
                     </ListItemText>
@@ -266,8 +268,9 @@ const PokeInfo = ({
             <Grid
               item
               xs={12}
-              md={4}
-              lg={4}
+              sm={4}
+              md={3}
+              lg={2}
               flexWrap="wrap"
               justifyContent="space-around"
             >
@@ -284,7 +287,7 @@ const PokeInfo = ({
               </Grid>
         ) : null}
 
-        {chain ? (
+        {chain2 ? (
           // <Grid
           //   container
           //   justifyContent="center"
@@ -295,15 +298,16 @@ const PokeInfo = ({
             <Grid
               item
               xs={12}
-              md={4}
-              lg={4}
+              sm={4}
+              md={6}
+              lg={6}
               flexWrap="wrap"
               justifyContent="space-around"
               >
               
                 <Typography variant="subtitle2">2° step</Typography>
               
-                {chain?.map((name, i) => (
+                {chain2?.map((name, i) => (
                   <Button
                     sx={{ padding: "5px", width: "200px" }}
                     key={i}
@@ -315,17 +319,20 @@ const PokeInfo = ({
               
             </Grid>
         ) : null}
-        {chainFinal && chainFinal !== undefined? (
+        {chainFinal? (
             <Grid
               item
               xs={12}
-              md={4}
-              lg={4}
+              sm={4}
+              md={3}
+              lg={2}
               flexWrap="wrap"
               justifyContent="space-around"
             >
+                
                 <Typography variant="subtitle2">Final step</Typography>
-                {chainFinal?.map((name, i) => (
+                
+                {chainFinal.map((name, i) => (
                   <Button
                     sx={{ padding: "5px", width: "200px" }}
                     key={i}
@@ -336,7 +343,7 @@ const PokeInfo = ({
                 ))}
               </Grid>
         ) : null}
-</Grid>
+        </Grid>
         {/* evolutions */}
         <Grid
           container
