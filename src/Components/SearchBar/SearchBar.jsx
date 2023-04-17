@@ -18,7 +18,7 @@ const SearchBar = () => {
 
   return (
     
-    <Grid container alignItems={'flex-end'} justifyContent={'flex-end'} xs={12} >
+    <Grid container alignItems={'flex-end'} justifyContent={'flex-end'}  xs={12}>
       <Grid item maxWidth='300px' padding='5px 3px 2px 3px' marginTop='10px' flexDirection={'column'}> 
       <Paper elevation={2} >
       <InputBase

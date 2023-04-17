@@ -20,6 +20,7 @@ const OnePoke = () => {
 
   const [loader, setLoader] = useState(false);
 
+  const [base, setBase] = useState([]);
   const [midEvo, setMidEvo] = useState([]);
   const [finEvo, setFinalEvo] = useState([]);
 
@@ -79,9 +80,8 @@ const OnePoke = () => {
         axios.get(evolution).then((res) => {
           const midleEvo = res.data.chain.evolves_to;
           const finalEvo = res.data.chain.evolves_to[0].evolves_to;
-          console.log(finalEvo);
           nextEvolution(res.data.chain.evolves_to[0].species.name);
-
+          setBase(res.data.chain.species.name);
           //evolution chain step 2
           midleEvo.forEach((element) => {
             chain2.push(element.species.name);
@@ -150,9 +150,10 @@ const OnePoke = () => {
             // hrefNext={evolution}
             finalEvolution={finalEvolution? finalEvolution : ''}
             hrefFinal={finalEvolution}
+            chain1={base}
             chain={midEvo}
             chainName={midEvo}
-            chainFinal={finEvo}
+            chainFinal={finEvo  }
           />
          
         </Grid>

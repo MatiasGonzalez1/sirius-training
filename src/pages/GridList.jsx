@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PokeCard from "../Components/PokeCard";
 import axios from "axios";
-import { Button, Grid, Typography, TabScrollButton, Paper } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import Request from "../utils/Request.js";
 import Prueba from "../Components/Loader/Prueba.jsx";
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
