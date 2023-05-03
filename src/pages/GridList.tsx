@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import PokeCard from "../Components/PokeCard";
 import axios from "axios";
 import { Button, Grid, Typography } from "@mui/material";
-import Request from "../utils/Request.js";
-import Prueba from "../Components/Loader/Prueba.jsx";
-import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
+import Request from "../utils/Request";
+import Prueba from "../Components/Loader/Prueba";
 import SearchBar from "../Components/SearchBar/SearchBar";
+import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
+import { InfoPokemon } from '../@types/pokemon';
+
+
 
 const GridList = () => {
   const [poke, setPoke] = useState([]);
@@ -15,7 +18,7 @@ const GridList = () => {
 
   const [loader, setLoader] = useState(false);
 
-  const up = ()=>{
+  const up = ():void=>{
     window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
   }
 
@@ -34,7 +37,7 @@ const GridList = () => {
     }
   }
 
-  const fetch = (url)=>{
+  const fetch = (url:string)=>{
     setLoader(true);
     axios
     .get(`${url}pokemon?limit=36`)
@@ -43,11 +46,12 @@ const GridList = () => {
       setPrevPoke(res.data.previous);
       return res.data.results;
     })
-    .then((results) => {
-      return Promise.all(results.map((res) => axios.get(res.url)));
+    .then((results:any) => {
+      console.log(results)
+      return Promise.all(results.map((res:any) => axios.get(res.url)));
     })
-    .then((results) => {
-      setPoke(results.map((res) => res.data));
+    .then((results:any) => {
+      setPoke(results.map((res:any) => res.data));
     });
     window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
   }
@@ -70,12 +74,12 @@ const GridList = () => {
         </Typography>
       </Grid>
       <Grid container spacing={2} justifyContent="center">
-        {poke.map((item, index) => (
+        {poke.map((item:InfoPokemon, index:any) => (
           <PokeCard
-            key={item.id}
+            key={index}
             id={item.id}
             name={item.name[0].toUpperCase() + item.name.slice(1)}
-            imgSrc={item.sprites.front_default}
+            imgSrc={item.sprites?.front_default}
             type={item.types}
             href={`/poke/${item.id}`}
           />
@@ -102,5 +106,6 @@ const GridList = () => {
     </Grid>
   );
 };
+
 
 export default GridList;

@@ -1,4 +1,5 @@
 import React from "react";
+import { InfoPokemon } from "../@types/pokemon";
 import {
   Grid,
   Paper,
@@ -14,7 +15,7 @@ import { LabelImportant } from "@mui/icons-material";
 
 import { themeType } from "../utils/ThemeColor";
 
-const PokeInfo = ({
+const PokeInfo: React.FC<InfoPokemon> = ({
   name,
   type,
   ability,
@@ -70,7 +71,7 @@ const PokeInfo = ({
         <Grid container justifyContent="center" marginTop={3}>
           <Grid container justifyContent="center" padding={1}>
             <Grid item xs={8} textAlign="center">
-              {type?.map((one, i) => (
+              {type?.map((one:any, i) => (
                 <Typography
                   key={i}
                   display="inline"
@@ -125,7 +126,7 @@ const PokeInfo = ({
                   lg={4}
                   sx={sxItemBox}
                 >
-                  {data.map((item, i) => (
+                  {data.map((item:any, i:number) => (
                     <Grid item key={i}>
                       <Typography variant="subtitle2">
                         {item.stat.name}: {item.base_stat}
@@ -169,7 +170,7 @@ const PokeInfo = ({
               </Grid>
 
               <Grid container width="100%" justifyContent={'center'}>
-                {ability?.map((one, i) => (
+                {ability?.map((one: any, i) => (
                   <Grid
                     container
                     item
@@ -215,7 +216,7 @@ const PokeInfo = ({
                   "& ul": { padding: 0 },
                 }}
               >
-                {move?.map((one, i) => (
+                {move?.map((one:any, i) => (
                   <ListItem
                     key={one.move.name}
                     sx={{
@@ -307,7 +308,7 @@ const PokeInfo = ({
               
                 <Typography variant="subtitle2">2° step</Typography>
               
-                {chain2?.map((name, i) => (
+                {chain2?.map((name:string, i:number) => (
                   <Button
                     sx={{ padding: "5px", width: "200px" }}
                     key={i}
@@ -332,7 +333,7 @@ const PokeInfo = ({
                 
                 <Typography variant="subtitle2">Final step</Typography>
                 
-                {chainFinal.map((name, i) => (
+                {chainFinal.map((name:string, i:number) => (
                   <Button
                     sx={{ padding: "5px", width: "200px" }}
                     key={i}

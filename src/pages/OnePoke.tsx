@@ -2,16 +2,18 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button, Grid } from "@mui/material";
-import Request from "../utils/Request.js";
+import Request from "../utils/Request";
 import PokeInfo from "../Components/PokeInfo";
-import Prueba from "../Components/Loader/Prueba.jsx";
-import ButtonReusable from "../Components/Button/ButtonReusable.jsx";
+import Prueba from "../Components/Loader/Prueba";
+import ButtonReusable from "../Components/Button/ButtonReusable";
+import { InfoPokemon } from '../@types/pokemon';
+
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 
 const OnePoke = () => {
   const [url, setUrl] = useState(Request);
 
-  const [poke, setPoke] = useState({});
+  const [poke, setPoke] = useState<InfoPokemon>(Object);
   const [data, setData] = useState([]);
   const [imgData, setImgData] = useState([]);
   const [evolution, nextEvolution] = useState([]);
@@ -24,13 +26,14 @@ const OnePoke = () => {
   const [midEvo, setMidEvo] = useState([]);
   const [finEvo, setFinalEvo] = useState([]);
 
-  const chain2 = [];
-  const chain3 = [];
+  const chain2: Array<string> = [];
+  const chain3: Array<string> = [];
+  const numberOne:number = 1;
 
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const fetch = async (url) => {
+  const fetch = async (url:string) => {
     await axios
       .get(`${url}pokemon/${id}`)
       .then((res) => {
@@ -83,17 +86,17 @@ const OnePoke = () => {
           nextEvolution(res.data.chain.evolves_to[0].species.name);
           setBase(res.data.chain.species.name);
           //evolution chain step 2
-          midleEvo.forEach((element) => {
+          midleEvo.forEach((element:any) => {
             chain2.push(element.species.name);
-            const evoFilter = [...new Set(chain2)];
+            const evoFilter:any = [...new Set(chain2)];
             setMidEvo(evoFilter);
           });
 
           //evolution chain step 3
   
-          finalEvo.forEach((element)=>{
+          finalEvo.forEach((element:any)=>{
             chain3.push(element.species.name);
-            const evoFilter = [...new Set(chain3)];
+            const evoFilter:any = [...new Set(chain3)];
             setFinalEvo(evoFilter);
 
             console.log(chain3)
@@ -116,15 +119,15 @@ const OnePoke = () => {
         <Grid>
           <ButtonReusable text="Return to Home" hrefButton="/" />
          <Grid container justifyContent='space-around' paddingTop='50px'>
-         {poke.id > 0 && poke.id !== 1 ? (
-            <Button variant='outlined' sx={{color:'white',borderRadius:'0px 10px 0px 10px', border:'1px solid #fff'}} href={parseInt(poke.id) - 1}>
+         {poke.id && poke.id > 0 && poke.id !== 1 ? (
+            <Button variant='outlined' sx={{color:'white',borderRadius:'0px 10px 0px 10px', border:'1px solid #fff'}} href={`${poke.id}- ${numberOne}` }>
               <ArrowBackIos />
             </Button>
           ) : (
             ""
           )}
            {poke.id ? (
-            <Button variant='outlined' sx={{color:'white',borderRadius:'10px 0px 10px 0px', border:'1px solid #fff'}}  href={parseInt(poke.id) + 1}>
+            <Button variant='outlined' sx={{color:'white',borderRadius:'10px 0px 10px 0px', border:'1px solid #fff'}}  href={`${poke.id} + ${numberOne}` }>
               {" "}
               <ArrowForwardIos />
             </Button>
@@ -153,7 +156,7 @@ const OnePoke = () => {
             chain1={base}
             chain2={midEvo}
             chainName={midEvo}
-            chainFinal={finEvo  }
+            chainFinal={finEvo}
           />
          
         </Grid>
