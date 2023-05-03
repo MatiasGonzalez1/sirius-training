@@ -3,9 +3,7 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button, Grid } from "@mui/material";
 import Request from "../utils/Request";
-import PokeInfo from "../Components/PokeInfo";
-import Prueba from "../Components/Loader/Prueba";
-import ButtonReusable from "../Components/Button/ButtonReusable";
+import { PokeInfo, ButtonReusable, Prueba } from "../Components";
 import { InfoPokemon } from '../@types/pokemon';
 
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
@@ -120,14 +118,14 @@ const OnePoke = () => {
           <ButtonReusable text="Return to Home" hrefButton="/" />
          <Grid container justifyContent='space-around' paddingTop='50px'>
          {poke.id && poke.id > 0 && poke.id !== 1 ? (
-            <Button variant='outlined' sx={{color:'white',borderRadius:'0px 10px 0px 10px', border:'1px solid #fff'}} href={`${poke.id}- ${numberOne}` }>
+            <Button variant='outlined' sx={{color:'white',borderRadius:'0px 10px 0px 10px', border:'1px solid #fff'}} href={`${poke.id - numberOne}`}>
               <ArrowBackIos />
             </Button>
           ) : (
             ""
           )}
            {poke.id ? (
-            <Button variant='outlined' sx={{color:'white',borderRadius:'10px 0px 10px 0px', border:'1px solid #fff'}}  href={`${poke.id} + ${numberOne}` }>
+            <Button variant='outlined' sx={{color:'white',borderRadius:'10px 0px 10px 0px', border:'1px solid #fff'}}  href={(poke.id) + numberOne}>
               {" "}
               <ArrowForwardIos />
             </Button>

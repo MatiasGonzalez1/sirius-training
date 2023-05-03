@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import PokeCard from "../Components/PokeCard";
 import axios from "axios";
 import { Button, Grid, Typography } from "@mui/material";
 import Request from "../utils/Request";
-import Prueba from "../Components/Loader/Prueba";
-import SearchBar from "../Components/SearchBar/SearchBar";
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
+import { PokeCard, SearchBar, Prueba} from "../Components";
 import { InfoPokemon } from '../@types/pokemon';
 
 
