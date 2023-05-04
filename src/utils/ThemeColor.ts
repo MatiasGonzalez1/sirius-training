@@ -21,7 +21,9 @@
 //   water: "#0190ff",
 // };
 
-const typeColorTransparent:object = {
+type IColorObj = {[key: string]: any};
+
+const typeColorTransparent: IColorObj = {
   bug: "#18c26dd3",
   dragon:"#ebd58eca",
   electric: "#e8be28be",
@@ -45,19 +47,24 @@ const typeColorTransparent:object = {
 
 
 
-const typeColorToString = Object.entries(typeColorTransparent)
+// const typeColorToString = Object.entries(typeColorTransparent)
 
-export const themeType:any = (name:string)=>{
-  typeColorToString.forEach(element => {
-    if(name === element[0]){
-      console.log(element[1])
-    }
-  })
+export const themeType = (name:string)=>{
+  return typeColorTransparent[name];
 }
+
+// export const themeType:any = (name:string)=>{
+//   console.log("name", name)
+//   typeColorToString.forEach(element => {
+//     if(name === element[0]){
+//       console.log("type color",  typeof element[1])
+//     return element[1]
+//     }
+//   })
+// }
 
 //   for(const element in typeColorToString){
 //     if(name === element){
 //       return typeColorTransparent[element];
 //     }
 //   }
-// }
