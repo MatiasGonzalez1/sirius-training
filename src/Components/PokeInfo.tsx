@@ -71,7 +71,7 @@ const PokeInfo: React.FC<InfoPokemon> = ({
         <Grid container justifyContent="center" marginTop={3}>
           <Grid container justifyContent="center" padding={1}>
             <Grid item xs={8} textAlign="center">
-              {type?.map((one:any, i) => (
+              {type?.map((one:any, i:any) => (
                 <Typography
                   key={i}
                   display="inline"

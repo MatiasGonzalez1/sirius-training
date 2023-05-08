@@ -5,6 +5,7 @@ import PokeCard from '../PokeCard';
 import * as React from 'react';
 import { InfoPokemon } from '../../@types/pokemon';
 
+
 const SearchBar = () => {
   const [search, setSearch] = useState('');
   const [pokemon, setPokemon] = useState<InfoPokemon>();

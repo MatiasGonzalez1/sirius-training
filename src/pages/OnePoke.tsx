@@ -82,6 +82,7 @@ const OnePoke = () => {
           const midleEvo = res.data.chain.evolves_to;
           const finalEvo = res.data.chain.evolves_to[0].evolves_to;
           nextEvolution(res.data.chain.evolves_to[0].species.name);
+          console.log(res.data.chain.species)
           setBase(res.data.chain.species.name);
           //evolution chain step 2
           midleEvo.forEach((element:any) => {

@@ -12,7 +12,7 @@
 
 export type InfoPokemon = {
   name?: any |string,
-  type?: Array<string>,
+  type?: any,
   types?: Array<string>,
   sprites?:any,
   ability?: Array<string>,
@@ -33,4 +33,5 @@ export type InfoPokemon = {
   preEvolution?:any |string,
   hrefPre?:any|string,
   chainName?: any|string
+  pokemon_v2_pokemontypes?: Array<object>
 }
