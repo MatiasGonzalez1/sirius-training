@@ -12,11 +12,26 @@ import { GOTTA_CATCH_THEM_ALL } from "../apollo-client/pedido";
 import { useQuery} from '@apollo/client';
 
 const GridList = () => {
-  const {data, loading, error} = useQuery(GOTTA_CATCH_THEM_ALL);  
+  const [numberPage, setNumberPage] = useState(0);
+  const [totalPoke, setTotalPoke] = useState(18);
+
+  const next = ()=>{
+    setNumberPage(numberPage + totalPoke)
+    setTotalPoke(totalPoke)
+  }
+
+  const prev = ()=>{
+    setNumberPage(numberPage - totalPoke)
+    setTotalPoke(totalPoke)
+  }
+
+
+  const {data, loading, error} = useQuery(GOTTA_CATCH_THEM_ALL(numberPage,totalPoke));  
+  
   // const imgPokeGraph = ((JSON.parse(data.pokemon_v2_pokemon.pokemon_v2_pokesprites.sprites)).front_default)
   //   .replace("/media", "https://raw.githubusercontent.com/PokeAPI/sprites/master/")
   // const toParse = async (texto:string)=>{
-  //    const salida = await JSON.parse(texto)
+  //    const salida = await JSON.parse(texto)  
   //   return salida.front_default
   // }
 
@@ -40,16 +55,18 @@ const GridList = () => {
 
   return(
     <Grid>
+
       <SearchBar/>
+
       <Grid container justifyContent="center" padding={2} color="white">
          <Typography sx={{ fontSize: "2.2rem" }} variant="h3">
            Pokemon's List
          </Typography>
        </Grid>
+
        <Grid container spacing={2} justifyContent="center">
          {allPoke.map((item:InfoPokemon, index:any) => (
            <PokeCard
-
              key={index}
              id={item.id}
              name={item.name[0].toUpperCase() + item.name.slice(1)}
@@ -59,75 +76,28 @@ const GridList = () => {
              href={`/poke/${item.id}`}
            />
             ))}
+            
+          <Grid container justifyContent='space-around'>
+          {allPoke[0].id !== 1? 
+          <Button
+            sx={{ margin: "20px" }}
+            variant="contained"
+            onClick={()=> prev()}>
+            Anterior
+          </Button> : null}
+          {allPoke? <Button
+            sx={{ margin: "20px" }}
+            variant="contained"
+            onClick={()=> next()}
+          >
+            Siguiente
+          </Button> : ''} 
+          </Grid>
          </Grid>
+         
          <ArrowCircleUpIcon onClick={up} sx={upButtonStyle}/>
     </Grid>
   )
-
-  
-
-
-  // const [poke, setPoke] = useState([]);
-  // const [url, setUrl] = useState(Request);
-  // const [nextPoke, setNextPoke] = useState("");
-  // const [prevPoke, setPrevPoke] = useState("");
-
-  // const [loader, setLoader] = useState(false);
-
-
-  // const fetch = (url:string)=>{
-  //   setLoader(true);
-  //   axios
-  //   .get(`${url}pokemon?limit=36`)
-  //   .then((res) => {
-  //     setNextPoke(res.data.next);
-  //     setPrevPoke(res.data.previous);
-  //     return res.data.results;
-  //   })
-  //   .then((results:any) => {
-  //     return Promise.all(results.map((res:any) => axios.get(res.url)));
-  //   })
-  //   .then((results:any) => {
-  //     setPoke(results.map((res:any) => res.data));
-  //   });
-  //   window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
-  // }
-
-
-  // useEffect(() => {
-  //   fetch(url);
-  //   setLoader(false);
-  // }, [url]);
-
-  // return (
-  //   <Grid>
-  //     <SearchBar/>
-  //     {/* <Button href="/pokeList">View on list</Button> Esta porción de código se comenta para implementar nueva funcionalidad*/}
-
-  //     <Grid container justifyContent="center" padding={2} color="white">
-  //       <Typography sx={{ fontSize: "2.2rem" }} variant="h3">
-  //         Pokemon's List
-  //       </Typography>
-  //     </Grid>
-  //     <Grid container spacing={2} justifyContent="center">
-  //       {poke.map((item:InfoPokemon, index:any) => (
-  //         <PokeCard
-  //           key={index}
-  //           id={item.id}
-  //           name={item.name[0].toUpperCase() + item.name.slice(1)}
-  //           imgSrc={item.sprites?.front_default}
-  //           type={item.types}
-  //           href={`/poke/${item.id}`}
-  //         />
-  //       ))}
-  //       
-  
-  //     </Grid>
-  //     <ArrowCircleUpIcon onClick={up} sx={upButtonStyle} />
-       
-  //   </Grid>
-  // );
 };
-
 
 export default GridList;

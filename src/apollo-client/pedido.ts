@@ -1,8 +1,10 @@
 import { gql } from "@apollo/client";
 
-export const GOTTA_CATCH_THEM_ALL = gql`
+
+export const GOTTA_CATCH_THEM_ALL =(page:any, cantidad:any) =>
+  gql`
   query gottaCatchThemAll {
-    pokemon_v2_pokemon(where: { id: { _lte: 18 } }) {
+    pokemon_v2_pokemon(offset:${page}, limit: ${cantidad}){
       id
       name
       pokemon_v2_pokemonstats {
@@ -21,7 +23,10 @@ export const GOTTA_CATCH_THEM_ALL = gql`
       }
     }
   }
+
 `;
+
+
 
 export const GOTTA_CATCH_THEM_ONE = (id: any) => gql`
   query gottaCatchThemOne {
