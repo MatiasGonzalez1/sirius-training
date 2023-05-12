@@ -1,4 +1,5 @@
 import React from "react";
+import { InfoPokemon } from "../@types/pokemon";
 import { themeType } from "../utils/ThemeColor";
 import {
   Grid,
@@ -9,8 +10,10 @@ import {
 
 import LabelImportantIcon from "@mui/icons-material/LabelImportant";
 
-const PokeCard = ({
-  name,
+
+
+const PokeCard: React.FC<InfoPokemon> = (
+  {name,
   type,
   imgSrc,
   id,
@@ -18,7 +21,7 @@ const PokeCard = ({
   preEvolution,
   finalEvolution,
   data,
-}) => {
+  })=> {
 
   const alt = `img-${name}`;
 
@@ -57,14 +60,14 @@ const PokeCard = ({
           <Grid container justifyContent="center" width='100%'>
             <Grid container justifyContent="space-around" padding={1}>
               <Grid item xs={12} textAlign="center" >
-                {type?.map((one, i) => (
+                {type?.map((one:any, i:any) => (
                   <Typography
                     key={i}
                     display="inline"
-                    sx={{ padding: "0px 3px", maxWidth:'30%', margin:'5px 2px', backgroundColor:`${themeType(one.type.name)}`, borderRadius:'6px' }}
+                    sx={{ padding: "0px 3px", maxWidth:'30%', margin:'5px 2px', backgroundColor:themeType(one.pokemon_v2_type.name), borderRadius:'6px' }}
                   >
                     <LabelImportantIcon sx={{fontSize:'10px', margin:'0px 5px 0px 5px'}} />
-                    {one.type.name}
+                    {one.pokemon_v2_type.name}
                   </Typography>
                 ))}
               </Grid>
@@ -78,7 +81,7 @@ const PokeCard = ({
               </Grid>
 
               <Grid container justifyContent="center">
-                {data.map((item, i) => (
+                {data.map((item:any, i:any) => (
                   <Grid
                     container
                     item

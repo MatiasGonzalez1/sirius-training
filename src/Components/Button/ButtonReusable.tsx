@@ -1,7 +1,12 @@
 import React from 'react';
 import { Button, Grid } from '@mui/material';
 
-const ButtonReusable = ({text, hrefButton}) => {
+type ReusableButton = {
+  text:string,
+  hrefButton:string
+}
+
+const ButtonReusable: React.FC<ReusableButton> = ({text, hrefButton}) => {
   return (
     <Grid>
       <Grid item sx={{marginTop: '10px'}}>

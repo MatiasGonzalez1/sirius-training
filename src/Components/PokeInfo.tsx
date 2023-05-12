@@ -1,4 +1,5 @@
 import React from "react";
+import { InfoPokemon } from "../@types/pokemon";
 import {
   Grid,
   Paper,
@@ -14,7 +15,7 @@ import { LabelImportant } from "@mui/icons-material";
 
 import { themeType } from "../utils/ThemeColor";
 
-const PokeInfo = ({
+const PokeInfo: React.FC<InfoPokemon> = ({
   name,
   type,
   ability,
@@ -24,7 +25,7 @@ const PokeInfo = ({
   preEvolution,
   evolution,
   finalEvolution,
-  hrefPre,
+  evolves_from_species_id,
   hrefNext,
   hrefFinal,
   data,
@@ -70,21 +71,21 @@ const PokeInfo = ({
         <Grid container justifyContent="center" marginTop={3}>
           <Grid container justifyContent="center" padding={1}>
             <Grid item xs={8} textAlign="center">
-              {type?.map((one, i) => (
+              {type?.map((one:any, i:any) => (
                 <Typography
                   key={i}
                   display="inline"
                   sx={{
                     padding: "5px",
                     margin: "2px",
-                    backgroundColor: `${themeType(one.type.name)}`,
+                    backgroundColor:themeType(one.pokemon_v2_type.name),
                     borderRadius: "10px",
                   }}
                 >
                   <LabelImportant
                     sx={{ fontSize: "10px", margin: "0px 5px 0px 5px" }}
                   />
-                  {one.type.name}
+                  {one.pokemon_v2_type.name}
                 </Typography>
               ))}
             </Grid>
@@ -125,10 +126,10 @@ const PokeInfo = ({
                   lg={4}
                   sx={sxItemBox}
                 >
-                  {data.map((item, i) => (
+                  {data.map((item:any, i:number) => (
                     <Grid item key={i}>
                       <Typography variant="subtitle2">
-                        {item.stat.name}: {item.base_stat}
+                        {item.pokemon_v2_stat.name}: {item.base_stat}
                       </Typography>
                     </Grid>
                   ))}
@@ -169,7 +170,7 @@ const PokeInfo = ({
               </Grid>
 
               <Grid container width="100%" justifyContent={'center'}>
-                {ability?.map((one, i) => (
+                {ability?.map((one: any, i) => (
                   <Grid
                     container
                     item
@@ -182,7 +183,7 @@ const PokeInfo = ({
                   >
                     <Grid item mb={'-40px'}>
                       <Typography variant="subtitle2">
-                        {i + 1}-{one.ability.name}
+                        {i + 1}-{one.pokemon_v2_ability.name}
                       </Typography>
                     </Grid>
                   </Grid>
@@ -210,14 +211,14 @@ const PokeInfo = ({
                   position: "relative",
                   overflow: "auto",
                   maxHeight: 150,
-                  border: "1px solid #1d1b1bae",
+                  border: "1px solid #63378a",
                   borderRadius: "5px",
                   "& ul": { padding: 0 },
                 }}
               >
-                {move?.map((one, i) => (
+                {move?.map((one:any, i) => (
                   <ListItem
-                    key={one.move.name}
+                    key={i}
                     sx={{
                       "&:hover": {
                         backgroundColor: "#0a0a0ac7",
@@ -227,7 +228,7 @@ const PokeInfo = ({
                   >
                     <ListItemText>
                       <Typography variant="subtitle2">
-                        {i + 1} - {one.move.name}
+                        {i + 1} - {one.pokemon_v2_move.name}
                       </Typography>
                     </ListItemText>
                   </ListItem>
@@ -307,7 +308,7 @@ const PokeInfo = ({
               
                 <Typography variant="subtitle2">2° step</Typography>
               
-                {chain2?.map((name, i) => (
+                {chain2?.map((name:string, i:number) => (
                   <Button
                     sx={{ padding: "5px", width: "200px" }}
                     key={i}
@@ -332,7 +333,7 @@ const PokeInfo = ({
                 
                 <Typography variant="subtitle2">Final step</Typography>
                 
-                {chainFinal.map((name, i) => (
+                {chainFinal.map((name:string, i:number) => (
                   <Button
                     sx={{ padding: "5px", width: "200px" }}
                     key={i}
@@ -356,8 +357,8 @@ const PokeInfo = ({
             <Grid item xs={4} justifyContent="center">
               <Typography variant="subtitle1">
                 Pre Evolution:{" "}
-                <Link href={hrefPre} underline="none">
-                  {preEvolution}
+                <Link href={`/poke/${evolves_from_species_id}`} underline="none">
+                  {name}
                 </Link>
               </Typography>
             </Grid>
