@@ -31,7 +31,7 @@ export type InfoPokemon = {
   chain2?:Array<string>,
   chainFinal?:Array<string>,
   preEvolution?:any |string,
-  hrefPre?:any|string,
+  evolves_from_species_id?:any|number,
   chainName?: any|string
   pokemon_v2_pokemontypes?: Array<object>
 }

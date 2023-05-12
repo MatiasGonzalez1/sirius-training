@@ -25,7 +25,7 @@ const PokeInfo: React.FC<InfoPokemon> = ({
   preEvolution,
   evolution,
   finalEvolution,
-  hrefPre,
+  evolves_from_species_id,
   hrefNext,
   hrefFinal,
   data,
@@ -78,14 +78,14 @@ const PokeInfo: React.FC<InfoPokemon> = ({
                   sx={{
                     padding: "5px",
                     margin: "2px",
-                    backgroundColor: `${themeType(one.type.name)}`,
+                    backgroundColor:themeType(one.pokemon_v2_type.name),
                     borderRadius: "10px",
                   }}
                 >
                   <LabelImportant
                     sx={{ fontSize: "10px", margin: "0px 5px 0px 5px" }}
                   />
-                  {one.type.name}
+                  {one.pokemon_v2_type.name}
                 </Typography>
               ))}
             </Grid>
@@ -129,7 +129,7 @@ const PokeInfo: React.FC<InfoPokemon> = ({
                   {data.map((item:any, i:number) => (
                     <Grid item key={i}>
                       <Typography variant="subtitle2">
-                        {item.stat.name}: {item.base_stat}
+                        {item.pokemon_v2_stat.name}: {item.base_stat}
                       </Typography>
                     </Grid>
                   ))}
@@ -183,7 +183,7 @@ const PokeInfo: React.FC<InfoPokemon> = ({
                   >
                     <Grid item mb={'-40px'}>
                       <Typography variant="subtitle2">
-                        {i + 1}-{one.ability.name}
+                        {i + 1}-{one.pokemon_v2_ability.name}
                       </Typography>
                     </Grid>
                   </Grid>
@@ -211,14 +211,14 @@ const PokeInfo: React.FC<InfoPokemon> = ({
                   position: "relative",
                   overflow: "auto",
                   maxHeight: 150,
-                  border: "1px solid #1d1b1bae",
+                  border: "1px solid #63378a",
                   borderRadius: "5px",
                   "& ul": { padding: 0 },
                 }}
               >
                 {move?.map((one:any, i) => (
                   <ListItem
-                    key={one.move.name}
+                    key={i}
                     sx={{
                       "&:hover": {
                         backgroundColor: "#0a0a0ac7",
@@ -228,7 +228,7 @@ const PokeInfo: React.FC<InfoPokemon> = ({
                   >
                     <ListItemText>
                       <Typography variant="subtitle2">
-                        {i + 1} - {one.move.name}
+                        {i + 1} - {one.pokemon_v2_move.name}
                       </Typography>
                     </ListItemText>
                   </ListItem>
@@ -357,8 +357,8 @@ const PokeInfo: React.FC<InfoPokemon> = ({
             <Grid item xs={4} justifyContent="center">
               <Typography variant="subtitle1">
                 Pre Evolution:{" "}
-                <Link href={hrefPre} underline="none">
-                  {preEvolution}
+                <Link href={`/poke/${evolves_from_species_id}`} underline="none">
+                  {name}
                 </Link>
               </Typography>
             </Grid>

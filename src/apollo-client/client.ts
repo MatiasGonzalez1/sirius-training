@@ -1,4 +1,4 @@
-import { ApolloClient, InMemoryCache,  gql } from '@apollo/client';
+import { ApolloClient, InMemoryCache } from '@apollo/client';
 
 export const client = new ApolloClient({
   //servidor de GraphQl

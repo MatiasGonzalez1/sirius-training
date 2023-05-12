@@ -6,34 +6,16 @@ import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import { PokeCard, SearchBar, Prueba} from "../Components";
 import { upButtonStyle, up } from "../Components/Button/ButtonToUp";
 import { InfoPokemon } from '../@types/pokemon';
-
-import { useQuery, gql } from '@apollo/client';
 import NotFound from "./NotFound";
+import { GOTTA_CATCH_THEM_ALL } from "../apollo-client/pedido";
 
-const GOTTA_CATCH_THEM_ALL = gql`
-query gottaCatchThemAll {
-  pokemon_v2_pokemon(where: {id:{_lte: 18}}) {
-    id
-    name
-    pokemon_v2_pokemonstats{
-      base_stat
-      pokemon_v2_stat{
-        name
-      }
-    }
-    pokemon_v2_pokemontypes {
-      pokemon_v2_type {
-        name
-      }
-    }
-  }
-}
-`
+import { useQuery} from '@apollo/client';
 
 const GridList = () => {
   const {data, loading, error} = useQuery(GOTTA_CATCH_THEM_ALL);  
-
-  // const toParse = async (texto:any)=>{
+  // const imgPokeGraph = ((JSON.parse(data.pokemon_v2_pokemon.pokemon_v2_pokesprites.sprites)).front_default)
+  //   .replace("/media", "https://raw.githubusercontent.com/PokeAPI/sprites/master/")
+  // const toParse = async (texto:string)=>{
   //    const salida = await JSON.parse(texto)
   //   return salida.front_default
   // }
@@ -67,9 +49,11 @@ const GridList = () => {
        <Grid container spacing={2} justifyContent="center">
          {allPoke.map((item:InfoPokemon, index:any) => (
            <PokeCard
+
              key={index}
              id={item.id}
              name={item.name[0].toUpperCase() + item.name.slice(1)}
+            //  imgSrc={imgPokeGraph}
              imgSrc={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${item.id}.png`}
              type={item.pokemon_v2_pokemontypes}
              href={`/poke/${item.id}`}
