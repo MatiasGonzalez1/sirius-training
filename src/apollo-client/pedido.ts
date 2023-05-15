@@ -26,17 +26,6 @@ export const GOTTA_CATCH_THEM_ALL =(page:any, cantidad:any) =>
 
 `;
 
-export const GOTTA_CATCH_THEM_ALL_FILTER =(value:any) =>
-  gql`
-  query gottaCatchThemAllFilter {
-    pokemon_v2_pokemon(where: {id:{_like:${value}}}) {
-      id
-      name
-    }
-  }
-`;
-
-
 export const GOTTA_CATCH_THEM_ONE = (id: any) => gql`
   query gottaCatchThemOne {
     pokemon_v2_pokemon(where: {id:{_eq:${id}}}) {

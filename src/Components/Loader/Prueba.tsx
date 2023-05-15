@@ -8,10 +8,12 @@ import { Typography, Grid } from '@mui/material';
 
 const Prueba = () => {
   return (
-     <Grid sx={{textAlign: 'center'}} height='100vh'>
-      <img className='loaderImg' src={img} alt='pikachu-img'/>
-      <CircularProgress color="primary" />
+     <Grid sx={{textAlign: 'center', mt:'30px', height:'100vh', flexDirection:'column'}} >
+      <Grid>
+        <img className='loaderImg' src={img} alt='pikachu-img'/>
+      </Grid>
       <Typography variant='h2' sx={{color: 'white'}}>Pika pi?</Typography>
+      <CircularProgress color="primary" />
      </Grid>
   )
 }

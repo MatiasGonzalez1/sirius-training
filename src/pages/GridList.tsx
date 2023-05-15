@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 // import axios from "axios";
-import { Button, Grid, Typography } from "@mui/material";
+import { Button, Grid, Pagination, PaginationItem, Paper, Typography } from "@mui/material";
 // import Request from "../utils/Request";
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import { PokeCard, SearchBar, Prueba} from "../Components";
@@ -10,28 +10,29 @@ import NotFound from "./NotFound";
 import { GOTTA_CATCH_THEM_ALL } from "../apollo-client/pedido";
 
 import { useQuery} from '@apollo/client';
+import { Link } from "react-router-dom";
 
 const GridList = () => {
-  const [numberPage, setNumberPage] = useState(0);
+  const [numberPoke, setNumberPoke] = useState(0);
   const [totalPoke, setTotalPoke] = useState(18);
-  const [count, setCount] = useState(2)
+  const [count, setCount] = useState(1)
 
   const next = ()=>{
-    setNumberPage(numberPage + totalPoke)
+    setNumberPoke(numberPoke + totalPoke)
     setTotalPoke(totalPoke)
     setCount(count + 1)
     console.log(count)
   }
 
   const prev = ()=>{
-    setNumberPage(numberPage - totalPoke)
+    setNumberPoke(numberPoke - totalPoke)
     setTotalPoke(totalPoke)
     setCount(count -1)
     console.log(count)
   }
 
 
-  const {data, loading, error} = useQuery(GOTTA_CATCH_THEM_ALL(numberPage,totalPoke));  
+  const {data, loading, error} = useQuery(GOTTA_CATCH_THEM_ALL(numberPoke,totalPoke));  
   
   // const imgPokeGraph = ((JSON.parse(data.pokemon_v2_pokemon.pokemon_v2_pokesprites.sprites)).front_default)
   //   .replace("/media", "https://raw.githubusercontent.com/PokeAPI/sprites/master/")
@@ -70,11 +71,11 @@ const GridList = () => {
        </Grid>
 
        <Grid container spacing={2} justifyContent="center">
-         {allPoke.map((item:InfoPokemon, index:any) => (
+         {allPoke?.map((item:InfoPokemon, index:any) => (
            <PokeCard
              key={index}
              id={item.id}
-             name={item.name[0].toUpperCase() + item.name.slice(1)}
+             name={`${item.name?.charAt(0).toUpperCase()}${item.name?.slice(1)}`}
             //  imgSrc={imgPokeGraph}
              imgSrc={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${item.id}.png`}
              type={item.pokemon_v2_pokemontypes}
@@ -83,20 +84,24 @@ const GridList = () => {
             ))}
             
           <Grid container justifyContent='space-around'>
-          {allPoke[0].id !== 1? 
-          <Button
-            sx={{ margin: "20px" }}
-            variant="contained"
+          {allPoke[0].id !== 1?
+          <Paper sx={{margin:'10px 5px 0', padding:'5px', background:'#ffffff24'}}>
+          <Link style={{textDecoration: 'none', color:'#fff'}}
+            to={`?page=${count-1}`}
             onClick={()=> prev()}>
             Anterior
-          </Button> : null}
-          {allPoke? <Button
-            sx={{ margin: "20px" }}
-            variant="contained"
-            onClick={()=> next()}
-          >
-            Siguiente
-          </Button> : ''} 
+          </Link>
+          </Paper>
+          : null}
+          {allPoke? 
+          <Paper sx={{margin:'10px 5px 0', padding:'5px', background:'#ffffff24'}}>
+            <Link style={{textDecoration: 'none', color:'#fff'}}
+          to={`?page=${count+1}`}
+          onClick={()=> next()}>
+          Siguiente
+        </Link> 
+          </Paper>
+          : ''} 
           </Grid>
          </Grid>
          

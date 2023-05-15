@@ -11,27 +11,27 @@
 // }
 
 export type InfoPokemon = {
-  name?: any |string,
-  type?: any,
+  name?: string,
+  type?: Array<Object>,
   types?: Array<string>,
   sprites?:any,
   ability?: Array<string>,
-  href?: any,
+  href?: string,
   abilities?: Array<string>,
   move?: Array<string>,
   moves?: Array<string>,
-  imgSrc?:any,
-  id?: any,
+  imgSrc?:string,
+  id?: number,
   evolution?:string,
   finalEvolution?:any |string,
   hrefNext?:any |string,
   hrefFinal?:any |string,
-  data?: any,
+  data?: Array<Object>,
   chain1?:any |string,
   chain2?:Array<string>,
   chainFinal?:Array<string>,
   preEvolution?:any |string,
-  evolves_from_species_id?:any|number,
+  evolves_from_species_id?:number,
   chainName?: any|string
   pokemon_v2_pokemontypes?: Array<object>
 }
