@@ -14,15 +14,20 @@ import { useQuery} from '@apollo/client';
 const GridList = () => {
   const [numberPage, setNumberPage] = useState(0);
   const [totalPoke, setTotalPoke] = useState(18);
+  const [count, setCount] = useState(2)
 
   const next = ()=>{
     setNumberPage(numberPage + totalPoke)
     setTotalPoke(totalPoke)
+    setCount(count + 1)
+    console.log(count)
   }
 
   const prev = ()=>{
     setNumberPage(numberPage - totalPoke)
     setTotalPoke(totalPoke)
+    setCount(count -1)
+    console.log(count)
   }
 
 

@@ -1,9 +1,13 @@
 import { useState } from 'react';
-import axios from 'axios';
-import { Grid, InputBase, Button, Paper } from '@mui/material';
+import { Grid, InputBase, Button, Paper, Typography } from '@mui/material';
 import PokeCard from '../PokeCard';
 import * as React from 'react';
 import { InfoPokemon } from '../../@types/pokemon';
+
+import { GOTTA_CATCH_THEM_ALL_FILTER } from "../../apollo-client/pedido";
+
+import { useQuery} from '@apollo/client';
+import Prueba from '../Loader/Prueba';
 
 
 const SearchBar = () => {
@@ -11,17 +15,14 @@ const SearchBar = () => {
   const [pokemon, setPokemon] = useState<InfoPokemon>();
 
   const fetchPokemon = async () => {
-    try {
-      const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${search}`);
-      
-      setPokemon(response.data);
-    } catch (error) {
-      console.error('Error fetching Pokemon:', error);
-    }
+     setPokemon(data)
+      console.log(data);
+
   };
 
+  const {data, loading, error} = useQuery(GOTTA_CATCH_THEM_ALL_FILTER(search));
+
   return (
-    
     <Grid container alignItems={'flex-end'} justifyContent={'flex-end'}  xs={12}>
       <Grid item maxWidth='300px' padding='5px 3px 2px 3px' marginTop='10px' > 
       <Paper elevation={2} >
@@ -34,7 +35,7 @@ const SearchBar = () => {
       </Paper>
       </Grid>
 
-      {pokemon && (
+      {/* {pokemon && (
         <Grid container>
         <PokeCard
          key={pokemon.id}
@@ -46,7 +47,7 @@ const SearchBar = () => {
        />
         </Grid>
         
-      )}
+      )} */}
     </Grid>
   );
 };
