@@ -60,7 +60,7 @@ const PokeCard: React.FC<InfoPokemon> = (
           <Grid container justifyContent="center" width='100%'>
             <Grid container justifyContent="space-around" padding={1}>
               <Grid item xs={12} textAlign="center" >
-                {type?.map((one:any, i:any) => (
+                {type?.map((one:any, i:number) => (
                   <Typography
                     key={i}
                     display="inline"
