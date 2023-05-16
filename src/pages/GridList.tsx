@@ -71,7 +71,7 @@ const GridList = () => {
        </Grid>
 
        <Grid container spacing={2} justifyContent="center">
-         {allPoke?.map((item:InfoPokemon, index:any) => (
+         {allPoke?.map((item:InfoPokemon, index:number) => (
            <PokeCard
              key={index}
              id={item.id}

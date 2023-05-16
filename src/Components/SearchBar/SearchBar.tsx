@@ -1,26 +1,32 @@
-import { useState } from 'react';
-import axios from 'axios';
+import React,{ useEffect,useState} from 'react';
 import { Grid, InputBase, Button, Paper } from '@mui/material';
 import PokeCard from '../PokeCard';
-import * as React from 'react';
 import { InfoPokemon } from '../../@types/pokemon';
+import {useLazyQuery} from '@apollo/client';
+import { GOTTA_CATCH_THEM_FIND } from '../../apollo-client/pedido';
 
 
 const SearchBar = () => {
   const [search, setSearch] = useState('');
   const [pokemon, setPokemon] = useState<InfoPokemon>();
-
-  const fetchPokemon = async () => {
+  const [getPoke, response]=useLazyQuery(GOTTA_CATCH_THEM_FIND)
+  console.log(response)
+  
+ 
+  const fetchPokemon = async (name:string) => {
     try {
-      const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${search}`);
-      
-      setPokemon(response.data);
+      await getPoke({variables:{nameToSearch:name}})
+      if(!response.data){
+        <Grid>Cargando</Grid>
+      }else{
+      setPokemon(response.data.pokemon_v2_pokemon[0])
+      }
     } catch (error) {
       console.error('Error fetching Pokemon:', error);
     }
   };
 
-  return (
+   return (
     
     <Grid container alignItems={'flex-end'} justifyContent={'flex-end'}  xs={12}>
       <Grid item maxWidth='300px' padding='5px 3px 2px 3px' marginTop='10px' > 
@@ -30,20 +36,24 @@ const SearchBar = () => {
         placeholder='Search Pokemon'
         onChange={(e) => setSearch(e.target.value)}
       />
-      <Button onClick={fetchPokemon}>Search</Button>
+      <Button onClick={()=>fetchPokemon(`%${search}%`)}>Search</Button>
       </Paper>
       </Grid>
 
-      {pokemon && (
+      {pokemon &&(
         <Grid container>
-        <PokeCard
-         key={pokemon.id}
-         id={pokemon.id}
-         name={`${pokemon.name?.charAt(0).toUpperCase()}${pokemon.name?.slice(1)}`}
-         imgSrc={pokemon.sprites?.front_default? pokemon.sprites.front_default : pokemon.sprites?.other.home.front_default} 
-         type={pokemon.types}
-         href={`/poke/${pokemon.id}`}
+          {
+            <PokeCard
+              key={pokemon.id}
+              id={pokemon.id}
+              name={`${pokemon.name?.charAt(0).toUpperCase()}${pokemon.name?.slice(1)}`}
+              imgSrc={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`} 
+              type={pokemon.pokemon_v2_pokemontypes}
+              href={`/poke/${pokemon.id}`}
        />
+          }
+        
+       <Button onClick={()=>fetchPokemon('')}>Close</Button>
         </Grid>
         
       )}
