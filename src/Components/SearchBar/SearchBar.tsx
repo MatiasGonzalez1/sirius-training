@@ -4,6 +4,7 @@ import PokeCard from '../PokeCard';
 import { InfoPokemon } from '../../@types/pokemon';
 import {useLazyQuery} from '@apollo/client';
 import { GOTTA_CATCH_THEM_FIND } from '../../apollo-client/pedido';
+import { Link } from 'react-router-dom';
 
 
 const SearchBar = () => {
@@ -28,7 +29,10 @@ const SearchBar = () => {
 
    return (
     
-    <Grid container alignItems={'flex-end'} justifyContent={'flex-end'}  xs={12}>
+    <Grid container alignItems={'flex-end'} justifyContent={'space-between'}  xs={12}>
+      <Paper sx={{margin:'10px 5px 5px 0px', padding:'5px', background:'#ffffff24'}}>
+        <Link style={{textDecoration: 'none', color:'#fff'}} to={'/advanced-search'}>Advanced Search</Link>
+      </Paper>
       <Grid item maxWidth='300px' padding='5px 3px 2px 3px' marginTop='10px' > 
       <Paper elevation={2} >
       <InputBase
@@ -52,10 +56,8 @@ const SearchBar = () => {
               href={`/poke/${pokemon.id}`}
        />
           }
-        
        <Button onClick={()=>fetchPokemon('')}>Close</Button>
         </Grid>
-        
       )}
     </Grid>
   );
