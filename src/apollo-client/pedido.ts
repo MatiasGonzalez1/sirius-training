@@ -55,6 +55,19 @@ export const GOTTA_CATCH_THEM_ONE = (id: any) => gql`
       pokemon_v2_pokemonspecy {
         evolves_from_species_id
         name
+        id
+      }
+    }
+    pokemon_v2_pokemonspecies(where: {id:{_eq:${id}}}) {
+      evolves_from_species_id
+      pokemon_v2_evolutionchain {
+        id
+        pokemon_v2_pokemonspecies(order_by: {id: asc}) {
+          evolution_chain_id
+          evolves_from_species_id
+          name
+          id
+        }
       }
     }
   }

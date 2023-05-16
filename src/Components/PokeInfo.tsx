@@ -32,6 +32,7 @@ const PokeInfo: React.FC<InfoPokemon> = ({
   chain1,
   chain2,
   chainFinal,
+  chain1Id
 }) => {
   const alt = `img-${name}`;
 
@@ -265,7 +266,7 @@ const PokeInfo: React.FC<InfoPokemon> = ({
           </Grid>
           
         
-        {chain1? (
+        {/* {chain1? (
             <Grid
               item
               xs={12}
@@ -276,17 +277,17 @@ const PokeInfo: React.FC<InfoPokemon> = ({
               justifyContent="space-around"
             >
               
-                <Typography variant="subtitle2">Pokemon Base</Typography>
+                <Typography variant="subtitle2"></Typography>
                 {chain1 && (
                   <Button
                     sx={{ padding: "5px", width: "200px" }}
-                    href={`/poke/${chain1}`}
+                    href={`/poke/${chain1Id}`}
                   >
                     {chain1}
                   </Button>
                 )}
               </Grid>
-        ) : null}
+        ) : null} */}
 
         {chain2 ? (
           // <Grid
@@ -306,17 +307,31 @@ const PokeInfo: React.FC<InfoPokemon> = ({
               justifyContent="space-around"
               >
               
-                <Typography variant="subtitle2">2° step</Typography>
+                <Typography variant="subtitle2"></Typography>
               
-                {chain2?.map((name:string, i:number) => (
+                {chain2 && chain2.map((item:any, index:number)=>
+                (
+                   item === chain2[0]?
                   <Button
-                    sx={{ padding: "5px", width: "200px" }}
-                    key={i}
-                    href={`/poke/${name}`}
+                    sx={{ padding: "5px", width: "200px"}}
+                    key={index}
+                    href={`/poke/${item.id}`}
                   >
-                    {name}
+                  
+                    {`${index +1} - ${item.name}`}
+                    
                   </Button>
-                ))}
+                   : <Button
+                   sx={{ padding: "5px", width: "200px" }}
+                   key={index}
+                   href={`/poke/${item.id}`}
+                 >
+                   {`${index +1} - ${item.name}`}
+                   
+                 </Button>
+                ))
+                  
+                }
               
             </Grid>
         ) : null}
@@ -331,7 +346,7 @@ const PokeInfo: React.FC<InfoPokemon> = ({
               justifyContent="space-around"
             >
                 
-                <Typography variant="subtitle2">Final step</Typography>
+                <Typography variant="subtitle2"></Typography>
                 
                 {chainFinal.map((name:string, i:number) => (
                   <Button
@@ -364,7 +379,7 @@ const PokeInfo: React.FC<InfoPokemon> = ({
             </Grid>
           ) : (
             <Grid item xs={4} justifyContent="center">
-              <Typography variant="subtitle1">Pokemon Base</Typography>
+              {/* <Typography variant="subtitle1">Pokemon Base</Typography> */}
             </Grid>
           )}
           {evolution && (

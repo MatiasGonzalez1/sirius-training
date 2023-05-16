@@ -11,7 +11,7 @@ const NotFound = () => {
           <Typography variant='h1' sx={{width: '100%', color:'white', textAlign:'center'}}>404 not found</Typography>
           <img src={psyduc} alt='Psyduck' style={{width:'300px', height:'400px',justifyContent:'center'}}/>
           <Typography variant='h2'sx={{width:'100%', color:'white', textAlign:'center'}}>Oh no! You confused Psyduc!!</Typography>
-          <ButtonReusable text='Click to Home' hrefButton='/'/>
+          <ButtonReusable text='Click to List' hrefButton='/poke'/>
         </Box>
     </Grid>
   )

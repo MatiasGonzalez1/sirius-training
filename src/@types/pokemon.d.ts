@@ -34,4 +34,5 @@ export type InfoPokemon = {
   evolves_from_species_id?:number,
   chainName?: any|string
   pokemon_v2_pokemontypes?: Array<object>
+  chain1Id?: number
 }
