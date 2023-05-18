@@ -1,11 +1,8 @@
 import './App.css';
-import Home from './pages/Home';
-import NotFound from './pages/NotFound';
+import {Home, NotFound, OnePoke, GridList} from './pages';
 import Container from '@mui/material/Container';
 import {Routes, Route} from 'react-router-dom';
-import OnePoke from './pages/OnePoke';
-import GridList from './pages/GridList';
-import AdvancedSearch from './pages/AdvancedSearch';
+import AdvancedSearch from './Components/AdvancedSearch/AdvancedSearch';
 //El archivo fetch es unicamente de prueba
 // import Fetch from './utils/Fetch';
 

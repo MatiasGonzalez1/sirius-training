@@ -75,7 +75,8 @@ export const GOTTA_CATCH_THEM_ONE = (id: any) => gql`
 
 
   export const GOTTA_CATCH_THEM_FIND =
-  gql`
+  gql(
+    `
   query gottaCatchThemAll($nameToSearch: String!) {
     pokemon_v2_pokemon(where:{name: {_ilike: $nameToSearch}}){
       id
@@ -97,4 +98,4 @@ export const GOTTA_CATCH_THEM_ONE = (id: any) => gql`
     }
   }
 
-`;
+`);

@@ -44,17 +44,21 @@ const SearchBar = () => {
       </Paper>
       </Grid>
 
-      {pokemon &&(
-        <Grid container>
+      {pokemon && 
+        (
+        <Grid container gap={'3px'}>
           {
+            response.data?.pokemon_v2_pokemon.map((pokemon:InfoPokemon, index:number)=>(
             <PokeCard
-              key={pokemon.id}
-              id={pokemon.id}
+            key={index}
+              // key={pokemon.id}
+              id={pokemon?.id}
               name={`${pokemon.name?.charAt(0).toUpperCase()}${pokemon.name?.slice(1)}`}
               imgSrc={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`} 
-              type={pokemon.pokemon_v2_pokemontypes}
-              href={`/poke/${pokemon.id}`}
+              type={pokemon?.pokemon_v2_pokemontypes}
+              href={`/poke/${pokemon?.id}`}
        />
+       ))
           }
        <Button onClick={()=>fetchPokemon('')}>Close</Button>
         </Grid>
