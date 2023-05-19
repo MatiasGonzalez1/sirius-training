@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 
-export const GOTTA_CATCH_THEM_ALL =(page:any, cantidad:any) =>
+export const GOTTA_CATCH_THEM_ALL =(page:number, cantidad:number) =>
   gql`
   query gottaCatchThemAll {
     pokemon_v2_pokemon(offset:${page}, limit: ${cantidad}){

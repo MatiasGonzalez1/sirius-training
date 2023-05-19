@@ -17,11 +17,9 @@ const SearchBar = () => {
   const fetchPokemon = async (name:string) => {
     try {
       await getPoke({variables:{nameToSearch:name}})
-      if(!response.data){
-        <Grid>Cargando</Grid>
-      }else{
-      setPokemon(response.data.pokemon_v2_pokemon[0])
-      }
+      .then((response)=>{
+        setPokemon(response.data.pokemon_v2_pokemon[0])
+      })
     } catch (error) {
       console.error('Error fetching Pokemon:', error);
     }

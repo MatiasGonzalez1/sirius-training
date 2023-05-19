@@ -36,9 +36,3 @@ export type InfoPokemon = {
   pokemon_v2_pokemontypes?: Array<object>
   chain1Id?: number
 }
-
-export type Pokemon = {
-  id: number;
-  name: string;
-  weight: number;
-};
