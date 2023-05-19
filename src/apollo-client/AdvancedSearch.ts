@@ -8,9 +8,9 @@ export const GOTTA_CATCH_THEM_FILTER =
       name
       id
       weight
-      pokemon_v2_pokemontypes {
+      types:pokemon_v2_pokemontypes {
         id
-        pokemon_v2_type {
+        type:pokemon_v2_type {
           name
           id
         }

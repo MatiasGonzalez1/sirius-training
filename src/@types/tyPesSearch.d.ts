@@ -3,7 +3,7 @@ export type Pokemon = {
   name: string;
   weight: number;
   color:string;
-  pokemon_v2_pokemontypes:Array<Object>;
+  types:Array<String>;
   type:string;
 };
 

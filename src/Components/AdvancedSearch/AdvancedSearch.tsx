@@ -15,7 +15,6 @@ const AdvancedSearch = () => {
   const [searchByName, setSearchByName] = useState('');
 
   const fetchPoke =  (name:string)=>{
-  
      getPoke({variables:{nameToSearch:name}})
     .then((response)=>{
       setResToApi(response.data.pokemon_v2_pokemon)
@@ -105,7 +104,7 @@ const AdvancedSearch = () => {
             </Grid>
           </Box>
         </Grid>
-        <Button onClick={()=>fetchPoke(`%${searchByName}%`)}>Search</Button>
+        <Button onClick={(e)=> searchByName === '' ? e.preventDefault() : fetchPoke(`%${searchByName}%`)}>Search</Button>
       </Grid>
       <Grid item>
       <TableContainer component={Paper}>
@@ -128,7 +127,7 @@ const AdvancedSearch = () => {
                 </Link>
               </StyledTableCell>
               <StyledTableCell align="right">{row.weight}</StyledTableCell>
-              {/* <StyledTableCell align="right">{row.pokemon_v2_pokemontypes[0]}</StyledTableCell> */}
+              {/* <StyledTableCell align="right">{row.types[0].type.name}</StyledTableCell> */}
               {/* <StyledTableCell align="right">{row.type}</StyledTableCell> */}
               <StyledTableCell align="right">{row.weight}</StyledTableCell>
               {/* <StyledTableCell align="right">{row.protein}</StyledTableCell> */}
