@@ -114,7 +114,9 @@ const AdvancedSearch = () => {
             <StyledTableCell>Name</StyledTableCell>
             <StyledTableCell align="right">Weight</StyledTableCell>
             <StyledTableCell align="right">Color</StyledTableCell>
-            <StyledTableCell align="right">Type</StyledTableCell>
+            <StyledTableCell align="right">Type 1</StyledTableCell>
+            <StyledTableCell align="right">Type 2</StyledTableCell>
+
             <StyledTableCell align="right">IsBaby</StyledTableCell>
           </TableRow>
         </TableHead>
@@ -127,10 +129,10 @@ const AdvancedSearch = () => {
                 </Link>
               </StyledTableCell>
               <StyledTableCell align="right">{row.weight}</StyledTableCell>
-              {/* <StyledTableCell align="right">{row.types[0].type.name}</StyledTableCell> */}
-              {/* <StyledTableCell align="right">{row.type}</StyledTableCell> */}
-              <StyledTableCell align="right">{row.weight}</StyledTableCell>
-              {/* <StyledTableCell align="right">{row.protein}</StyledTableCell> */}
+              <StyledTableCell align="right">{row.isBaby.color.name}</StyledTableCell>
+              <StyledTableCell align="right">{row.types[0].type.name}</StyledTableCell>
+              <StyledTableCell align="right">{row.types[1]?row.types[1].type.name: "Don't have" }</StyledTableCell>
+              <StyledTableCell align="right">{row.isBaby.is_baby === true ? 'true' : 'false'}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>

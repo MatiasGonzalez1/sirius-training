@@ -15,6 +15,12 @@ export const GOTTA_CATCH_THEM_FILTER =
           id
         }
       }
+      isBaby:pokemon_v2_pokemonspecy {
+        is_baby
+        color:pokemon_v2_pokemoncolor {
+          name
+        }
+      }
     }
   }
 
