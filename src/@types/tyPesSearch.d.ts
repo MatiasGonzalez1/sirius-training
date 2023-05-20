@@ -2,7 +2,7 @@ export type Pokemon = {
   id: number;
   name: string;
   weight: number;
-  color:any;
+  color:Array<String>;
   types:any;
   type:string;
   isBaby:any;

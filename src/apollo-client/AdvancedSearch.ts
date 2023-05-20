@@ -3,8 +3,8 @@ import { gql } from "@apollo/client";
 
 export const GOTTA_CATCH_THEM_FILTER =
   gql`
-  query gottaCatchThemFilter($nameToSearch: String!) {
-    pokemon_v2_pokemon(where: {name: {_ilike: $nameToSearch}}, order_by: {id: asc}) {
+  query gottaCatchThemFilter($nameToSearch: String) {
+    pokemon_v2_pokemon(where: {name: {_ilike: $nameToSearch}} order_by: {id: asc}) {
       name
       id
       weight
@@ -19,6 +19,7 @@ export const GOTTA_CATCH_THEM_FILTER =
         is_baby
         color:pokemon_v2_pokemoncolor {
           name
+          id
         }
       }
     }

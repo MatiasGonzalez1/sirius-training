@@ -3,7 +3,7 @@ import { tableCellClasses } from '@mui/material/TableCell';
 // import { TableComponent } from "./TableComponent";
 import ButtonReusable from "../Button/ButtonReusable";
 import { GOTTA_CATCH_THEM_FILTER } from "../../apollo-client/AdvancedSearch";
-import { ApolloLink, useLazyQuery} from "@apollo/client";
+import {useLazyQuery} from "@apollo/client";
 import React, {useState} from 'react';
 import { styled } from '@mui/material/styles';
 import { Pokemon } from '../../@types/tyPesSearch';
@@ -13,9 +13,12 @@ const AdvancedSearch = () => {
   const [getPoke, response]= useLazyQuery(GOTTA_CATCH_THEM_FILTER);
   const [resToApi, setResToApi] = useState([])
   const [searchByName, setSearchByName] = useState('');
+  const [searchByMinWeight, setSearchByMinWeight] = useState('')
+  const [searchByMaxWeight, setSearchByMaxWeight] = useState('')
 
-  const fetchPoke =  (name:string)=>{
-     getPoke({variables:{nameToSearch:name}})
+
+  const fetchPoke =  (name?:string, min?:string, max?:number)=>{
+     getPoke({variables:{nameToSearch:name, minWeight:min, maxWeight:max}})
     .then((response)=>{
       setResToApi(response.data.pokemon_v2_pokemon)
     })
@@ -89,7 +92,8 @@ const AdvancedSearch = () => {
                 label="Min-Weight"
                 type="number"
                 id="min-weight"
-                defaultValue=""
+                value={searchByMinWeight}
+                onChange={(e)=> setSearchByMinWeight(e.target.value)}
                 size="small"
               />
             </Grid>
@@ -98,13 +102,16 @@ const AdvancedSearch = () => {
                 label="Max-Weight"
                 type="number"
                 id="max-weight"
-                defaultValue=""
+                value={searchByMaxWeight}
+                onChange={(e)=> setSearchByMaxWeight(e.target.value)}
                 size="small"
               />
             </Grid>
           </Box>
         </Grid>
-        <Button onClick={(e)=> searchByName === '' ? e.preventDefault() : fetchPoke(`%${searchByName}%`)}>Search</Button>
+        <Button onClick={(e)=> searchByName === '' ? e.preventDefault() :
+        fetchPoke(`%${searchByName}%`)
+        }>Search</Button>
       </Grid>
       <Grid item>
       <TableContainer component={Paper}>
