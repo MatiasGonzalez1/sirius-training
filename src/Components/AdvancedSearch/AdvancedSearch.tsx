@@ -9,6 +9,10 @@ import { styled } from '@mui/material/styles';
 import { Pokemon } from '../../@types/tyPesSearch';
 import { Link } from 'react-router-dom';
 
+
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
+
 const AdvancedSearch = () => {
   const [getPoke, response]= useLazyQuery(GOTTA_CATCH_THEM_FILTER);
   const [resToApi, setResToApi] = useState([])
@@ -78,6 +82,7 @@ const AdvancedSearch = () => {
             noValidate
             autoComplete="off"
           >
+
             <Grid>
               <TextField
                 label="Name"
@@ -107,11 +112,17 @@ const AdvancedSearch = () => {
                 size="small"
               />
             </Grid>
-          </Box>
-        </Grid>
         <Button onClick={(e)=> searchByName === '' ? e.preventDefault() :
         fetchPoke(`%${searchByName}%`)
         }>Search</Button>
+          </Box>
+        </Grid>
+        <Grid item>
+<Stack spacing={2}>
+      <Pagination count={10} />
+    </Stack>
+        </Grid>
+       
       </Grid>
       <Grid item>
       <TableContainer component={Paper}>
