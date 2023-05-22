@@ -161,10 +161,10 @@ const AdvancedSearch = () => {
 
         <Grid item>
           <FormControl sx={{ width: 224 }}>
-            <InputLabel id="demo-multiple-checkbox-label">Type</InputLabel>
+            <InputLabel id="type">Type</InputLabel>
             <Select
-              labelId="demo-multiple-checkbox-label"
-              id="demo-multiple-checkbox"
+              labelId="type"
+              id="type"
               multiple
               value={type}
               defaultChecked
