@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 
-export const GET_POKEMONS = gql(/* GraphQL */ `
+export const GOTTA_CATCH_THEM_FILTER = gql(/* GraphQL */ `
     query GetPokemons(
       $pageNumber: Int!, 
       $searchName: String, 

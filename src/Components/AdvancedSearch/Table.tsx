@@ -11,16 +11,17 @@ import {
   Pagination,
   PaginationItem,
   Grid,
+  Typography,
 } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
 import { tableCellClasses } from "@mui/material/TableCell";
 import { styled } from "@mui/material/styles";
-import { GET_POKEMONS } from "../../apollo-client/AdvancedSearch";
+import { GOTTA_CATCH_THEM_FILTER } from "../../apollo-client/AdvancedSearch";
 import { Pokemon } from "../../@types/tyPesSearch";
 import { useQuery } from "@apollo/client";
 import Prueba from "../Loader/Prueba";
 
-const DisplayPokemons: React.FC<Pokemon> = ({
+const CreateTable: React.FC<Pokemon> = ({
   pageNumber,
   searchName,
   minWeight,
@@ -29,7 +30,7 @@ const DisplayPokemons: React.FC<Pokemon> = ({
   isBaby,
   type,
 }) => {
-  const { loading, error, data } = useQuery(GET_POKEMONS, {
+  const { loading, error, data } = useQuery(GOTTA_CATCH_THEM_FILTER, {
     variables: {
       pageNumber,
       searchName,
@@ -68,7 +69,7 @@ const DisplayPokemons: React.FC<Pokemon> = ({
   if (loading) return <Prueba />;
   if (error) return <p>Error :</p>;
   if (!data.pokemonsCount.aggregate.count)
-    return <p>There are no Pokemons that fulfill these filters</p>;
+    return <Typography>Pokemon not found, please search again</Typography>;
   return (
     <Grid flexDirection={"column"} display={"flex"} justifyContent={"center"}>
       <Grid item margin={"20px 5px 20px 5px"} alignSelf={"center"}>
@@ -91,11 +92,11 @@ const DisplayPokemons: React.FC<Pokemon> = ({
             <TableHead>
               <TableRow>
                 <StyledTableCell>Name</StyledTableCell>
-                <StyledTableCell align="right">Weight</StyledTableCell>
-                <StyledTableCell align="right">Is baby?</StyledTableCell>
                 <StyledTableCell align="right">Color</StyledTableCell>
+                <StyledTableCell align="right">Weight</StyledTableCell>
                 <StyledTableCell align="right">Type 1</StyledTableCell>
                 <StyledTableCell align="right">Type 2</StyledTableCell>
+                <StyledTableCell align="right">Is baby</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -119,18 +120,18 @@ const DisplayPokemons: React.FC<Pokemon> = ({
                         {name}
                       </LinkUI>
                     </StyledTableCell>
-                    <StyledTableCell align="right">{weight}</StyledTableCell>
-                    <StyledTableCell align="right">
-                      {specy.is_baby ? "true" : "false"}
-                    </StyledTableCell>
                     <StyledTableCell align="right">
                       {specy.color.name}
                     </StyledTableCell>
+                    <StyledTableCell align="right">{weight}</StyledTableCell>
                     <StyledTableCell align="right">
                       {types[0].type.name}
                     </StyledTableCell>
                     <StyledTableCell align="right">
                       {types[1] ? types[1].type.name : ""}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      {specy.is_baby ? "true" : "false"}
                     </StyledTableCell>
                   </StyledTableRow>
                 )
@@ -143,4 +144,4 @@ const DisplayPokemons: React.FC<Pokemon> = ({
   );
 };
 
-export default DisplayPokemons;
+export default CreateTable;

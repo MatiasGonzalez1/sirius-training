@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { useQuery } from "@apollo/client";
 
 import {
@@ -19,7 +19,7 @@ import {
 import { useLocation } from "react-router-dom";
 import { GET_COLORS_TYPES } from "../../apollo-client/AdvancedSearch";
 import Prueba from "../Loader/Prueba";
-import DisplayPokemons from "./Table";
+import CreateTable from "./Table";
 
 const AdvancedSearch = () => {
   const { loading, error, data } = useQuery(GET_COLORS_TYPES);
@@ -28,19 +28,19 @@ const AdvancedSearch = () => {
   const query = new URLSearchParams(location.search);
   const page = parseInt(query.get("page") || "1", 10);
 
-  const [minWeight, setMinWeight] = React.useState("");
-  const [maxWeight, setMaxWeight] = React.useState("");
-  const [searchName, setSearchName] = React.useState("");
-  const [type, setType] = React.useState<string[]>([]);
-  const [isBaby, setIsBaby] = React.useState(false);
-  const [color, setColor] = React.useState("");
+  const [minWeight, setMinWeight] = useState("");
+  const [maxWeight, setMaxWeight] = useState("");
+  const [searchName, setSearchName] = useState("");
+  const [type, setType] = useState<string[]>([]);
+  const [isBaby, setIsBaby] = useState(false);
+  const [color, setColor] = useState("");
 
-  const [minWeightTable, setMinWeightTable] = React.useState("");
-  const [maxWeightTable, setMaxWeightTable] = React.useState("");
-  const [searchNameTable, setSearchNameTable] = React.useState("");
-  const [typeTable, setTypeTable] = React.useState<string[]>([]);
-  const [isBabyTable, setIsBabyTable] = React.useState(false);
-  const [colorTable, setColorTable] = React.useState("");
+  const [minWeightTable, setMinWeightTable] = useState("");
+  const [maxWeightTable, setMaxWeightTable] = useState("");
+  const [searchNameTable, setSearchNameTable] = useState("");
+  const [typeTable, setTypeTable] = useState<string[]>([]);
+  const [isBabyTable, setIsBabyTable] = useState(false);
+  const [colorTable, setColorTable] = useState("");
 
   const handleChangeBaby = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsBaby(event.target.checked);
@@ -101,9 +101,9 @@ const AdvancedSearch = () => {
         noValidate
         autoComplete="off"
       >
-        <Grid item>
+        <Grid item >
           <TextField
-            id="outlined-basic"
+            id="name"
             label="Pokemon Name"
             variant="outlined"
             value={searchName}
@@ -198,19 +198,20 @@ const AdvancedSearch = () => {
 
       <Grid
         display={"flex"}
+        gap={'10px'}
         margin={"20px 5px 20px 5px"}
         justifyContent={"flex-end"}
       >
-        <Button size="small" onClick={removeFilters}>
-          Reset filters
+        <Button size="small" variant="contained" onClick={removeFilters}>
+          Remove filters
         </Button>
         <Button size="large" variant="contained" onClick={applyFilters}>
-          Apply filters
+          Search
         </Button>
       </Grid>
 
       <Grid display={"flex"} flexDirection={"column"} width={"100%"}>
-        <DisplayPokemons
+        <CreateTable
           pageNumber={(page - 1) * 20}
           searchName={"%".concat(searchNameTable).concat("%")}
           minWeight={minWeightTable ? minWeightTable : 0}
