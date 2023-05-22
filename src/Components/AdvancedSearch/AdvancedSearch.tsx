@@ -1,163 +1,231 @@
-import { Grid, TableBody, TableContainer,TableRow, TableHead, Paper,Table, TableCell, TextField, Typography, Box, Button } from "@mui/material";
-import { tableCellClasses } from '@mui/material/TableCell';
-// import { TableComponent } from "./TableComponent";
-import ButtonReusable from "../Button/ButtonReusable";
-import { GOTTA_CATCH_THEM_FILTER } from "../../apollo-client/AdvancedSearch";
-import {useLazyQuery} from "@apollo/client";
-import React, {useState} from 'react';
-import { styled } from '@mui/material/styles';
-import { Pokemon } from '../../@types/tyPesSearch';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { useQuery } from "@apollo/client";
 
-
-import Pagination from '@mui/material/Pagination';
-import Stack from '@mui/material/Stack';
+import {
+  Button,
+  TextField,
+  FormGroup,
+  FormControlLabel,
+  Checkbox,
+  Select,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  OutlinedInput,
+  ListItemText,
+  SelectChangeEvent,
+  Grid,
+} from "@mui/material";
+import { useLocation } from "react-router-dom";
+import { GET_COLORS_TYPES } from "../../apollo-client/AdvancedSearch";
+import Prueba from "../Loader/Prueba";
+import DisplayPokemons from "./Table";
 
 const AdvancedSearch = () => {
-  const [getPoke, response]= useLazyQuery(GOTTA_CATCH_THEM_FILTER);
-  const [resToApi, setResToApi] = useState([])
-  const [searchByName, setSearchByName] = useState('');
-  const [searchByMinWeight, setSearchByMinWeight] = useState('')
-  const [searchByMaxWeight, setSearchByMaxWeight] = useState('')
+  const { loading, error, data } = useQuery(GET_COLORS_TYPES);
 
+  const location = useLocation();
+  const query = new URLSearchParams(location.search);
+  const page = parseInt(query.get("page") || "1", 10);
 
-  const fetchPoke =  (name?:string, min?:string, max?:number)=>{
-     getPoke({variables:{nameToSearch:name, minWeight:min, maxWeight:max}})
-    .then((response)=>{
-      setResToApi(response.data.pokemon_v2_pokemon)
-    })
-      // setResToApi(response.data)
+  const [minWeight, setMinWeight] = React.useState("");
+  const [maxWeight, setMaxWeight] = React.useState("");
+  const [searchName, setSearchName] = React.useState("");
+  const [type, setType] = React.useState<string[]>([]);
+  const [isBaby, setIsBaby] = React.useState(false);
+  const [color, setColor] = React.useState("");
+
+  const [minWeightTable, setMinWeightTable] = React.useState("");
+  const [maxWeightTable, setMaxWeightTable] = React.useState("");
+  const [searchNameTable, setSearchNameTable] = React.useState("");
+  const [typeTable, setTypeTable] = React.useState<string[]>([]);
+  const [isBabyTable, setIsBabyTable] = React.useState(false);
+  const [colorTable, setColorTable] = React.useState("");
+
+  const handleChangeBaby = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsBaby(event.target.checked);
+  };
+  const handleChangeColor = (event: SelectChangeEvent) => {
+    setColor(event.target.value as string);
+  };
+  const handleChangeType = (event: SelectChangeEvent<typeof type>) => {
+    const {
+      target: { value },
+    } = event;
+    setType(typeof value === "string" ? value.split(",") : value);
   };
 
-  console.log(resToApi)
+  // Format items in Types filter
+  const ITEM_HEIGHT = 48;
+  const ITEM_PADDING_TOP = 8;
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+        width: 224,
+      },
+    },
+  };
 
-  const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-      backgroundColor: theme.palette.common.black,
-      color: theme.palette.common.white,
-    },
-    [`&.${tableCellClasses.body}`]: {
-      fontSize: 14,
-    },
-  }));
-  
-  const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
-    },
-    // hide last border
-    '&:last-child td, &:last-child th': {
-      border: 0,
-    },
-  }));
-  
-  
-  // const createData = (
-  //   id: any,
-  //   name: string,
-  //   weight: number,
-  //   color: string,
-  //   type: string)=>{
-  //   return {name, id, weight, color, type };
-  // }
-  
-  // const rows = [
-  //   createData(resToApi.id, 'name', 1, 'blue', 'red'),
-  // ];
+  const removeFilters = () => {
+    setMinWeight("");
+    setMaxWeight("");
+    setSearchName("");
+    setType([]);
+    setIsBaby(false);
+    setColor("");
+  };
+
+  const applyFilters = () => {
+    setMinWeightTable(minWeight);
+    setMaxWeightTable(maxWeight);
+    setSearchNameTable(searchName);
+    setTypeTable(type);
+    setIsBabyTable(isBaby);
+    setColorTable(color);
+  };
+
+  if (loading) return <Prueba />;
+  if (error) return <p>Error :</p>;
 
   return (
-    <Grid>
-      <ButtonReusable text="Return to List" hrefButton="/poke" />
-      <Grid item>
-        <Grid item sx={{ textAlign: "center" }}>
-          <Typography variant="h4">Advanced search</Typography>
-        </Grid>
+    <>
+      <Grid
+        display={"flex"}
+        flexDirection={"row"}
+        mt={"30px"}
+        flexWrap={"wrap"}
+        gap={"10px"}
+        justifyContent={"space-around"}
+        component="form"
+        noValidate
+        autoComplete="off"
+      >
         <Grid item>
-          <Box
-            display={"flex"}
-            component="form"
-            sx={{
-              "& .MuiTextField-root": { m: 1, width: "25ch" },
+          <TextField
+            id="outlined-basic"
+            label="Pokemon Name"
+            variant="outlined"
+            value={searchName}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              setSearchName(event.target.value);
             }}
-            noValidate
-            autoComplete="off"
-          >
-
-            <Grid>
-              <TextField
-                label="Name"
-                id="name"
-                value={searchByName}
-                onChange={(e)=> setSearchByName(e.target.value)}
-                size="small"
-              />
-            </Grid>
-            <Grid>
-              <TextField
-                label="Min-Weight"
-                type="number"
-                id="min-weight"
-                value={searchByMinWeight}
-                onChange={(e)=> setSearchByMinWeight(e.target.value)}
-                size="small"
-              />
-            </Grid>
-             <Grid>
-              <TextField
-                label="Max-Weight"
-                type="number"
-                id="max-weight"
-                value={searchByMaxWeight}
-                onChange={(e)=> setSearchByMaxWeight(e.target.value)}
-                size="small"
-              />
-            </Grid>
-        <Button onClick={(e)=> searchByName === '' ? e.preventDefault() :
-        fetchPoke(`%${searchByName}%`)
-        }>Search</Button>
-          </Box>
+          />
         </Grid>
+
         <Grid item>
-<Stack spacing={2}>
-      <Pagination count={10} />
-    </Stack>
+          <TextField
+            id="outlined-basic2"
+            label="Min Weight"
+            variant="outlined"
+            type="number"
+            value={minWeight}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              setMinWeight(event.target.value);
+            }}
+          />
         </Grid>
-       
-      </Grid>
-      <Grid item>
-      <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell>Name</StyledTableCell>
-            <StyledTableCell align="right">Weight</StyledTableCell>
-            <StyledTableCell align="right">Color</StyledTableCell>
-            <StyledTableCell align="right">Type 1</StyledTableCell>
-            <StyledTableCell align="right">Type 2</StyledTableCell>
 
-            <StyledTableCell align="right">IsBaby</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {resToApi.map((row:Pokemon) => (
-            <StyledTableRow key={row.id}>
-              <StyledTableCell component="th" scope="row">
-                <Link to={`/poke/${row.id}`}>
-                {row.name}
-                </Link>
-              </StyledTableCell>
-              <StyledTableCell align="right">{row.weight}</StyledTableCell>
-              <StyledTableCell align="right">{row.isBaby.color.name}</StyledTableCell>
-              <StyledTableCell align="right">{row.types[0].type.name}</StyledTableCell>
-              <StyledTableCell align="right">{row.types[1]?row.types[1].type.name: "Don't have" }</StyledTableCell>
-              <StyledTableCell align="right">{row.isBaby.is_baby === true ? 'true' : 'false'}</StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+        <Grid item>
+          <TextField
+            id="outlined-basic3"
+            label="Max Weight"
+            variant="outlined"
+            type="number"
+            value={maxWeight}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              setMaxWeight(event.target.value);
+            }}
+          />
+        </Grid>
+
+        <Grid item>
+          <FormControl sx={{ width: 224 }}>
+            <InputLabel id="demo-simple-select-label">Color</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={color}
+              label="Color"
+              onChange={handleChangeColor}
+            >
+              <MenuItem value={"%"}>all</MenuItem>
+              {data.color.map(({ name, id }: { name: string; id: number }) => (
+                <MenuItem value={name} key={id}>
+                  {name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+
+        <Grid item>
+          <FormControl sx={{ width: 224 }}>
+            <InputLabel id="demo-multiple-checkbox-label">Type</InputLabel>
+            <Select
+              labelId="demo-multiple-checkbox-label"
+              id="demo-multiple-checkbox"
+              multiple
+              value={type}
+              defaultChecked
+              onChange={handleChangeType}
+              input={<OutlinedInput label="Tag" />}
+              renderValue={(selected) => selected.join(", ")}
+              MenuProps={MenuProps}
+            >
+              {data.type.map(({ name, id }: { name: string; id: number }) => (
+                <MenuItem key={id} value={name}>
+                  <Checkbox checked={type.indexOf(name) > -1} />
+                  <ListItemText primary={name} />
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
       </Grid>
-    </Grid>
+      <Grid
+        display={"flex"}
+        margin={"20px 5px 20px 5px"}
+        justifyContent={"flex-end"}
+      >
+        <FormGroup>
+          <FormControlLabel
+            control={<Checkbox checked={isBaby} onChange={handleChangeBaby} />}
+            label="Is baby"
+          />
+        </FormGroup>
+      </Grid>
+
+      <Grid
+        display={"flex"}
+        margin={"20px 5px 20px 5px"}
+        justifyContent={"flex-end"}
+      >
+        <Button size="small" onClick={removeFilters}>
+          Reset filters
+        </Button>
+        <Button size="large" variant="contained" onClick={applyFilters}>
+          Apply filters
+        </Button>
+      </Grid>
+
+      <Grid display={"flex"} flexDirection={"column"} width={"100%"}>
+        <DisplayPokemons
+          pageNumber={(page - 1) * 20}
+          searchName={"%".concat(searchNameTable).concat("%")}
+          minWeight={minWeightTable ? minWeightTable : 0}
+          maxWeight={maxWeightTable ? maxWeightTable : 100000}
+          color={colorTable ? colorTable : "%"}
+          isBaby={isBabyTable}
+          type={
+            typeTable[0]
+              ? typeTable
+              : data.type.map(({ name }: { name: string }) => name)
+          }
+        />
+      </Grid>
+    </>
   );
 };
+
 export default AdvancedSearch;
